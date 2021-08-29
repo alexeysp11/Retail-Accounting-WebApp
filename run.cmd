@@ -1,3 +1,3 @@
 @echo off 
 
-dotnet run --project ./Retail.Accounting/Retail.Accounting.csproj 
+dotnet run --project ./UI/UI.csproj 

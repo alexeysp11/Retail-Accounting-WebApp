@@ -3,6 +3,9 @@
 */.vs
 */.vscode 
 
+*/bin
+*/obj
+
 Docs/ProcessDocs 
 
 Tests.Retail.Accounting
