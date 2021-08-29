@@ -1,0 +1,46 @@
+@page
+@model ProductsModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css" />
+
+<h1>Products</h1> 
+
+<table id="product_table" class="stripe row-border order-column" style="width:80%">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Quantity</th>
+            <th>Item price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Product name</td>
+            <td>Quantity</td>
+            <td>Item price</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Product name</th>
+            <th>Quantity</th>
+            <th>Item price</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script language="JavaScript" type="text/javascript">
+    $.noConflict();
+    jQuery( document ).ready(function( $ ) {
+        let isRowSelected = false; 
+        
+        $(document).ready(function() {
+            var table = $('#product_table').DataTable();
+        } ); 
+    });
+</script>

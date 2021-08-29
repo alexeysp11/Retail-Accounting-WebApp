@@ -1,0 +1,110 @@
+@page
+@model InventaryItemModel
+@{
+    ViewData["Title"] = "InventaryItem";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css" />
+
+<h1>InventaryItem</h1> 
+
+<table id="inventary_item_table" class="stripe row-border order-column" style="width:80%">
+    <thead>
+        <tr>
+            <th>Product title</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Product title</td>
+            <td>Quantity</td>
+        </tr>
+        <tr>
+            <td>Product title</td>
+            <td>Quantity</td>
+        </tr>
+        <tr>
+            <td>Product title</td>
+            <td>Quantity</td>
+        </tr>
+        <tr>
+            <td>Product title</td>
+            <td>Quantity</td>
+        </tr>
+        <tr>
+            <td>Product title</td>
+            <td>Quantity</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Product title</th>
+            <th>Quantity</th>
+        </tr>
+    </tfoot>
+</table>
+
+<div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
+    <div style="margin-top: 10px; margin-left: 200px; margin-bottom: 10px;">
+        <input type="text" name="product_title" id="product_title" placeholder="Product title" style="width: 300px;">
+        <input type="number" name="quantity" id="quantity" placeholder="Quantity"  style="width: 200px;">
+    </div>
+
+    <div style="margin-top: 10px; margin-left: 250px; margin-bottom: 10px;">
+        <input class="home-btn" type="button" value="Add">
+        <input class="home-btn" type="button" value="Edit">
+        <input class="home-btn" type="button" value="Delete">
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script language="JavaScript" type="text/javascript">
+    $.noConflict();
+    jQuery( document ).ready(function( $ ) {
+        let isRowSelected = false; 
+        
+        $(document).ready(function() {
+            var table = $('#inventary_item_table').DataTable();
+
+            $('#inventary_item_table tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                    document.getElementById('sticky_buttons').style.visibility = "hidden";
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    document.getElementById('sticky_buttons').style.visibility = "visible";
+                }
+            } );
+        } ); 
+
+        if ( $(window).height() >= $(document).find('#main_footer').prop('disabled', true).offset().top - 10 )
+        {
+            let topPosition = $(document).find('#main_footer').prop('disabled', true).offset().top + document.getElementById('sticky_buttons').offsetHeight; 
+            $('#sticky_buttons').css({'position':'fixed','top':'335px'});
+        }
+
+        var initTopPosition= $('#sticky_buttons').offset().top; 
+
+        $(window).scroll(function() {
+            if($(window).scrollTop() > 0)
+            {
+                $('#sticky_buttons').css({'position':'fixed','top':'390px'});
+
+                if ( $(window).scrollTop() + $(window).height() >= $(document).find('#main_footer').prop('disabled', true).offset().top - 10 ||
+                    $(window).height() >= $(document).height() - 100 )
+                {
+                    let topPosition = $(document).find('#main_footer').prop('disabled', true).offset().top + document.getElementById('sticky_buttons').offsetHeight; 
+                    $('#sticky_buttons').css({'position':'fixed','top':'335px'});
+                }
+            }
+            else
+            {
+                $('#sticky_buttons').css({'position':'absolute','top':initTopPosition+'px'});
+            }
+        });
+    });
+</script>

@@ -1,0 +1,26 @@
+@page
+@model SettingsModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h1>Settings</h1>
+
+<div id="GeneralInfo">
+    <h3>General info</h3>
+    <div>
+        <input type="text" name="CompanyName" class="settings-input" placeholder="Company name">
+    </div>
+    <div>
+        <input type="text" name="Owner" class="settings-input" placeholder="Owner">
+    </div>
+    <div>
+        <input type="text" name="Country" class="settings-input" placeholder="Country">
+    </div>
+    <div>
+        <input type="text" name="City" class="settings-input" placeholder="City">
+    </div>
+    <div>
+        <input type="submit" value="Submit" class="settings-btn">
+    </div>
+</div>

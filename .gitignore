@@ -1,0 +1,8 @@
+.vs
+.vscode 
+*/.vs
+*/.vscode 
+
+Docs/ProcessDocs 
+
+Tests.Retail.Accounting
