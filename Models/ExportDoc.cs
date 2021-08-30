@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic; 
 
 namespace Retail.Accounting.Models
 {
@@ -6,8 +7,14 @@ namespace Retail.Accounting.Models
     {
         public int ExportDocId { get; set; }
         public string DocNum { get; set; }
-        public int SellerId { get; set; }
-        public int PurchaserId { get; set; }
         public DateTime DateTime { get; set; }
+
+        public int EmployeeId { get; set; }
+        public Employee Employee { get; set; }
+
+        public int PurchaserId { get; set; }
+        public Client Purchaser { get; set; }
+
+        public List<ExportItem> ExportItems { get; set; }
     }
 }

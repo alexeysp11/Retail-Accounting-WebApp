@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic; 
 
 namespace Retail.Accounting.Models
 {
     public class Product
     {
         public int ProductId { get; set; }
-        public int Title { get; set; }
+        public string Title { get; set; }
+
+        public List<ExportItem> ExportItems { get; set; }
+        public List<ImportItem> ImportItems { get; set; }
+        public List<InventaryItem> InventaryItems { get; set; }
     }
 }

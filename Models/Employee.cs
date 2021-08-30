@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic; 
 
 namespace Retail.Accounting.Models
 {
@@ -7,11 +8,20 @@ namespace Retail.Accounting.Models
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public float Salary { get; set; }
-        public DateTime EmploymentDate { get; set; }
-        
-        public int ManagerId { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
 
-        public int DepartmentId { get; set; }
+        public int? ManagerId { get; set; }
+        public Employee Manager { get; set; }
+        public List<Employee> Employees { get; set; }
+
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
+
+        public List<Contract> Contracts { get; set; }
+
+        public List<ImportDoc> ImportDocs { get; set; }
+        public List<ExportDoc> ExportDocs { get; set; }
+        public List<InventaryDoc> InventaryDocs { get; set; }
     }
 }

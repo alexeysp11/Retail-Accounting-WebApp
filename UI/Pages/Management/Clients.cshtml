@@ -8,7 +8,7 @@
 
 <h1>Clients</h1> 
 
-<table id="import_table" class="stripe row-border order-column" style="width:80%">
+<table id="clients_table" class="stripe row-border order-column" style="width:80%">
     <thead>
         <tr>
             <th>Client name</th>
@@ -60,9 +60,9 @@
         let isRowSelected = false; 
         
         $(document).ready(function() {
-            var table = $('#import_table').DataTable();
+            var table = $('#clients_table').DataTable();
 
-            $('#import_table tbody').on( 'click', 'tr', function () {
+            $('#clients_table tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                     document.getElementById('sticky_buttons').style.visibility = "hidden";

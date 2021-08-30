@@ -8,7 +8,7 @@
 
 <h1>Employees</h1> 
 
-<table id="import_table" class="stripe row-border order-column" style="width:80%">
+<table id="employees_table" class="stripe row-border order-column" style="width:80%">
     <thead>
         <tr>
             <th>Employee name</th>
@@ -16,6 +16,7 @@
             <th>Department</th>
             <th>Salary</th>
             <th>Employment date</th>
+            <th>Termination date</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
             <td>Department</td>
             <td>Salary</td>
             <td>Employment date</td>
+            <td>Termination date</td>
         </tr>
     </tbody>
     <tfoot>
@@ -34,6 +36,7 @@
             <th>Department</th>
             <th>Salary</th>
             <th>Employment date</th>
+            <th>Termination date</th>
         </tr>
     </tfoot>
 </table>
@@ -64,9 +67,9 @@
         let isRowSelected = false; 
         
         $(document).ready(function() {
-            var table = $('#import_table').DataTable();
+            var table = $('#employees_table').DataTable();
 
-            $('#import_table tbody').on( 'click', 'tr', function () {
+            $('#employees_table tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                     document.getElementById('sticky_buttons').style.visibility = "hidden";
