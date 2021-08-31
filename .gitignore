@@ -8,6 +8,8 @@
 
 Docs/ProcessDocs 
 
-Tests.Retail.Accounting
-
 Migrations
+DB
+sqlite3.exe
+
+Tests

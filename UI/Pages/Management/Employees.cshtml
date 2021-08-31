@@ -6,9 +6,11 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css" />
 
-<h1>Employees</h1> 
+<div class="text-center"> 
+    <h1>Employees</h1> 
+</div>
 
-<table id="employees_table" class="stripe row-border order-column" style="width:80%">
+<table id="employees_table" class="stripe row-border order-column" style="width:100%">
     <thead>
         <tr>
             <th>Employee name</th>
@@ -42,13 +44,12 @@
 </table>
 
 <form method="post">
-    <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden; width: 950px;">
-        <div style="margin-top: 10px; margin-left: 25px; margin-bottom: 10px;">
+    <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
+        <div style="margin-top: 10px; margin-left: 75px; margin-bottom: 10px;">
             <input type="text" name="employee_name" id="employee_name" placeholder="Employee name">
             <input type="text" name="manager_name" id="manager_name" placeholder="Manager name">
             <input type="text" name="department" id="department" placeholder="Department">
             <input type="number" name="salary" id="salary" placeholder="Salary">
-            <input type="datetime" name="employment_date" id="employment_date" placeholder="Employment date">
         </div>
 
         <div style="margin-top: 10px; margin-left: 250px; margin-bottom: 10px;">

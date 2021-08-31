@@ -10,61 +10,55 @@
     <h1>Inventary</h1> 
 </div>
 
-<table id="inventary_table" class="stripe row-border order-column" style="width:80%">
-    <thead>
-        <tr>
-            <th>Document number</th>
-            <th>Employee</th>
-            <th>Date/time</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Document number</td>
-            <td>Employee</td>
-            <td>Date/time</td>
-        </tr>
-        <tr>
-            <td>Document number</td>
-            <td>Employee</td>
-            <td>Date/time</td>
-        </tr>
-        <tr>
-            <td>Document number</td>
-            <td>Employee</td>
-            <td>Date/time</td>
-        </tr>
-        <tr>
-            <td>Document number</td>
-            <td>Employee</td>
-            <td>Date/time</td>
-        </tr>
-        <tr>
-            <td>Document number</td>
-            <td>Employee</td>
-            <td>Date/time</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Document number</th>
-            <th>Employee</th>
-            <th>Date/time</th>
-        </tr>
-    </tfoot>
-</table>
+@try
+{
+    var inventaryDocs = Repository.Instance.GetInventaryDocs(); 
+    <table id="inventary_table" class="stripe row-border order-column" style="width:80%">
+        <thead>
+            <tr>
+                <th>Document number</th>
+                <th>Employee</th>
+                <th>Date/time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var doc in inventaryDocs)
+                {
+                    <tr>
+                        <td>@doc.DocNum</td>
+                        <td>@doc.EmployeeName</td>
+                        <td>@doc.DateTime</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Document number</th>
+                <th>Employee</th>
+                <th>Date/time</th>
+            </tr>
+        </tfoot>
+    </table>
+}
+catch (System.Exception e)
+{
+    <p>Unable to draw the table.</p>
+    <p>Exception: @e</p>
+}
 
 <form method="post">
     <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
         <div style="margin-top: 10px; margin-left: 75px; margin-bottom: 10px;">
             <input type="text" name="document_number" id="document_number" placeholder="Document number" style="width: 275px;">
             <input type="text" name="employee" id="employee" placeholder="Employee" style="width: 200px;">
-            <input type="datetime" name="date_time" id="date_time" placeholder="Date/time" style="width: 200px;">
+            <input type="date" name="date_time" id="date_time" min="2000-01-01" max="2021-12-31" style="width: 200px;">
         </div>
 
         <div style="margin-top: 10px; margin-left: 150px; margin-bottom: 10px;">
-            <input class="home-btn" type="submit" value="Add">
-            <input class="home-btn" type="submit" value="Edit">
+            <input class="home-btn" type="submit" asp-page-handler="AddBtn" value="Add">
+            <input class="home-btn" type="submit" asp-page-handler="EditBtn" value="Edit">
             <input class="home-btn" type="submit" value="Delete">
             <input class="home-btn" type="submit" value="Watch" asp-area="" asp-page="/InputData/InventaryItem">
         </div>

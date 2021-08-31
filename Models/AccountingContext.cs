@@ -27,9 +27,7 @@ namespace Retail.Accounting.Models
 
         public AccountingContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = $"C:\\Users\\User\\Desktop\\projects\\dotnet\\Linq\\accounting.db";
+            DbPath = $"C:\\Users\\User\\Desktop\\projects\\Retail-Accounting-WebApp\\DB\\accounting.db";
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
