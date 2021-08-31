@@ -19,5 +19,14 @@ namespace Retail.Accounting.Services
         void InsertInventaryDoc(string docNum, string employeeName, 
             DateTime dateTime); 
         dynamic GetInventaryDocs(); 
+
+        void InsertEmployee(string employeeName, float salary, 
+            string email, string phone, string managerName, 
+            string departmentTitle); 
+        List<Employee> GetEmployees(); 
+
+        void InsertClient(string clientName, string company, string email, 
+            string phone); 
+        List<Client> GetClients(); 
     }
 }

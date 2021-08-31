@@ -32,24 +32,6 @@ namespace Retail.Accounting.Services
             }
         }
 
-        public static void InsertEmployeeFromUi(string employeeName, float salary, 
-            string email, string phone, string managerName, string departmentTitle)
-        {
-            int? managerId = EmployeeService.GetEmployeeId(managerName); 
-            if (managerId == null)
-            {
-                EmployeeService.InsertEmployee(managerName, 0, string.Empty, 
-                    string.Empty, null, null); 
-                managerId = EmployeeService.GetEmployeeId(managerName); 
-            }
-
-            DepartmentService.InsertDepartmentIfNotExists(departmentTitle); 
-            int? departmentId = DepartmentService.GetDepartmentId(departmentTitle); 
-
-            EmployeeService.InsertEmployee(employeeName, salary, email, phone, 
-                managerId, departmentId); 
-        }
-
         public static int? GetEmployeeId(string employeeName)
         {
             int? employeeId = 0; 
@@ -69,6 +51,16 @@ namespace Retail.Accounting.Services
                 }
             }
             return employeeId; 
+        }
+
+        public static List<Employee> GetEmployees()
+        {
+            List<Employee> employees = new List<Employee>(); 
+            using (var db = new AccountingContext())
+            {
+                employees = db.Employee.OrderBy(e => e.EmployeeId).ToList(); 
+            }
+            return employees; 
         }
     }
 }

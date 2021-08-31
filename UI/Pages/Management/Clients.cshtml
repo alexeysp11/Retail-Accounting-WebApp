@@ -10,32 +10,46 @@
     <h1>Clients</h1>
 </div>
 
-<table id="clients_table" class="stripe row-border order-column" style="width:80%">
-    <thead>
-        <tr>
-            <th>Client name</th>
-            <th>Company</th>
-            <th>Email</th>
-            <th>Phone</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Client name</td>
-            <td>Company</td>
-            <td>Email</td>
-            <td>Phone</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Client name</th>
-            <th>Company</th>
-            <th>Email</th>
-            <th>Phone</th>
-        </tr>
-    </tfoot>
-</table>
+@try
+{
+    var clients = Repository.Instance.GetClients(); 
+    <table id="clients_table" class="stripe row-border order-column" style="width:80%">
+        <thead>
+            <tr>
+                <th>Client name</th>
+                <th>Company</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var client in clients)
+                {
+                    <tr>
+                        <td>@client.ClientName</td>
+                        <td>Company</td>
+                        <td>@client.Email</td>
+                        <td>@client.Phone</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Client name</th>
+                <th>Company</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </tfoot>
+    </table>
+}
+catch (System.Exception e)
+{
+    <p>Unable to draw the table.</p>
+    <p>Exception: @e</p>
+}
 
 <form method="post">
     <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
@@ -47,8 +61,8 @@
         </div>
 
         <div style="margin-top: 10px; margin-left: 250px; margin-bottom: 10px;">
-            <input class="home-btn" type="submit" value="Add">
-            <input class="home-btn" type="submit" value="Edit">
+            <input class="home-btn" type="submit" asp-page-handler="AddBtn" value="Add">
+            <input class="home-btn" type="submit" asp-page-handler="EditBtn" value="Edit">
             <input class="home-btn" type="submit" value="Delete">
         </div>
     </div>

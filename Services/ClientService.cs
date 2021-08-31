@@ -42,5 +42,15 @@ namespace Retail.Accounting.Services
             }
             return clientId; 
         }
+
+        public static List<Client> GetClients()
+        {
+            List<Client> clients = new List<Client>(); 
+            using (var db = new AccountingContext())
+            {
+                clients = db.Client.OrderBy(c => c.ClientId).ToList(); 
+            }
+            return clients; 
+        }
     }
 }

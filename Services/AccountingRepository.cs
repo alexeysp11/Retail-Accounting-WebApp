@@ -92,5 +92,44 @@ namespace Retail.Accounting.Services
             return InventaryService.GetInventaryDocs(); 
         }
         #endregion  // InventaryDoc 
+
+        #region Employees
+        public void InsertEmployee(string employeeName, float salary, 
+            string email, string phone, string managerName, 
+            string departmentTitle)
+        {
+            int? managerId = EmployeeService.GetEmployeeId(managerName); 
+            if (managerId == null)
+            {
+                EmployeeService.InsertEmployee(managerName, 0, string.Empty, 
+                    string.Empty, null, null); 
+                managerId = EmployeeService.GetEmployeeId(managerName); 
+            }
+
+            DepartmentService.InsertDepartmentIfNotExists(departmentTitle); 
+            int? departmentId = DepartmentService.GetDepartmentId(departmentTitle); 
+
+            EmployeeService.InsertEmployee(employeeName, salary, email, phone, 
+                managerId, departmentId); 
+        }
+
+        public List<Employee> GetEmployees()
+        {
+            return EmployeeService.GetEmployees(); 
+        }
+        #endregion  // Employees
+
+        #region Clients
+        public void InsertClient(string clientName, string company, string email, 
+            string phone)
+        {
+            ClientService.InsertClient(clientName, email, phone); 
+        }
+
+        public List<Client> GetClients()
+        {
+            return ClientService.GetClients(); 
+        }
+        #endregion  // Clients
     }
 }

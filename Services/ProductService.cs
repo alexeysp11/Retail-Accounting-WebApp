@@ -22,5 +22,15 @@ namespace Retail.Accounting.Services
                 }
             }
         }
+
+        public static List<Product> GetProducts()
+        {
+            List<Product> products = new List<Product>(); 
+            using (var db = new AccountingContext())
+            {
+                products = db.Product.OrderBy(id => id.ProductId).ToList(); 
+            }
+            return products; 
+        }
     }
 }
