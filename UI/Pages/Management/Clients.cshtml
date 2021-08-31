@@ -87,6 +87,12 @@ catch (System.Exception e)
                     table.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                     document.getElementById('sticky_buttons').style.visibility = "visible";
+                    
+                    var rowArray = table.row(this).data();
+                    document.getElementById('client_name').value = rowArray[0]; 
+                    document.getElementById('company').value = rowArray[1]; 
+                    document.getElementById('email').value = rowArray[2]; 
+                    document.getElementById('phone').value = rowArray[3]; 
                 }
             } );
         } ); 

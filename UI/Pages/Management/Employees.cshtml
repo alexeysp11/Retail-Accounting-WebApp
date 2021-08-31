@@ -70,7 +70,7 @@ catch (System.Exception e)
             <input type="text" name="manager_name" id="manager_name" placeholder="Manager name">
             <input type="text" name="department" id="department" placeholder="Department">
             <input type="number" name="salary" id="salary" placeholder="Salary">
-            <input type="text" name="Email" id="Email" placeholder="Email">
+            <input type="text" name="email" id="email" placeholder="Email">
             <input type="text" name="phone" id="phone" placeholder="Phone">
         </div>
 
@@ -101,6 +101,14 @@ catch (System.Exception e)
                     table.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                     document.getElementById('sticky_buttons').style.visibility = "visible";
+                    
+                    var rowArray = table.row(this).data();
+                    document.getElementById('employee_name').value = rowArray[0]; 
+                    document.getElementById('manager_name').value = rowArray[1]; 
+                    document.getElementById('department').value = rowArray[2]; 
+                    document.getElementById('salary').value = rowArray[3]; 
+                    document.getElementById('email').value = rowArray[4]; 
+                    document.getElementById('phone').value = rowArray[5]; 
                 }
             } );
         } ); 
@@ -108,7 +116,7 @@ catch (System.Exception e)
         if ( $(window).height() >= $(document).find('#main_footer').prop('disabled', true).offset().top - 10 )
         {
             let topPosition = $(document).find('#main_footer').prop('disabled', true).offset().top + document.getElementById('sticky_buttons').offsetHeight; 
-            $('#sticky_buttons').css({'position':'fixed','top':'335px'});
+            $('#sticky_buttons').css({'position':'fixed','top':'325px'});
         }
 
         var initTopPosition= $('#sticky_buttons').offset().top; 
@@ -116,12 +124,12 @@ catch (System.Exception e)
         $(window).scroll(function() {
             if($(window).scrollTop() > 0)
             {
-                $('#sticky_buttons').css({'position':'fixed','top':'390px'});
+                $('#sticky_buttons').css({'position':'fixed','top':'375px'});
 
                 if ( $(window).scrollTop() + $(window).height() >= $(document).find('#main_footer').prop('disabled', true).offset().top - 10 )
                 {
                     let topPosition = $(document).find('#main_footer').prop('disabled', true).offset().top + document.getElementById('sticky_buttons').offsetHeight; 
-                    $('#sticky_buttons').css({'position':'fixed','top':'335px'});
+                    $('#sticky_buttons').css({'position':'fixed','top':'315px'});
                 }
             }
             else
