@@ -68,7 +68,7 @@ namespace Retail.Accounting.Services
             return exportDocs; 
         }
 
-        public static dynamic GetExportItem(int exportDocId)
+        public static dynamic GetExportItems(int exportDocId)
         {
             object exportItems; 
             using (var db = new AccountingContext())
@@ -76,12 +76,13 @@ namespace Retail.Accounting.Services
                 exportItems = (from ei in db.Set<ExportItem>()
                     from p in db.Set<Product>().Where(p => ei.ProductId == p.ProductId)
                     where ei.ExportDocId == exportDocId
-                    select new 
+                    select new ExportItemInfo
                     { 
-                        itemId = ei.ExportItemId, 
-                        productTitle = p.Title, 
-                        quantity = ei.Quantity,
-                        price = ei.Price
+                        ExportItemId = ei.ExportItemId, 
+                        ProductName = p.Title, 
+                        Quantity = ei.Quantity,
+                        Price = ei.Price, 
+                        TotalPrice = ei.Quantity * ei.Price
                     }).ToList(); 
             }
             return exportItems; 

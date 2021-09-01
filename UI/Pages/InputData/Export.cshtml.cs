@@ -51,5 +51,12 @@ namespace Retail.Accounting.Pages
             }
             return RedirectToPage(); 
         }
+
+        public IActionResult OnPostWatchBtn(int document_id)
+        {
+            Repository.ExportDocId = document_id; 
+            _logger.LogInformation($"Request for ExportDoc with ID: {document_id}"); 
+            return RedirectToPage("ExportItem");
+        }
     }
 }

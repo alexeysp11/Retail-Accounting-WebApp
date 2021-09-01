@@ -7,72 +7,65 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css" />
 
 <div class="text-center">
-    <h1>Inventary Item</h1>
+    <h1>Inventary Item (ID: @Repository.InventaryDocId)</h1>
 </div>
 
-<table id="inventary_item_table" class="stripe row-border order-column" style="width:80%">
-    <thead>
-        <tr>
-            <th>Product title</th>
-            <th>Quantity</th>
-            <th>Delta</th>
-            <th>Avg. price</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Product title</td>
-            <td>Quantity</td>
-            <td>Delta</td>
-            <td>Avg. price</td>
-        </tr>
-        <tr>
-            <td>Product title</td>
-            <td>Quantity</td>
-            <td>Delta</td>
-            <td>Avg. price</td>
-        </tr>
-        <tr>
-            <td>Product title</td>
-            <td>Quantity</td>
-            <td>Delta</td>
-            <td>Avg. price</td>
-        </tr>
-        <tr>
-            <td>Product title</td>
-            <td>Quantity</td>
-            <td>Delta</td>
-            <td>Avg. price</td>
-        </tr>
-        <tr>
-            <td>Product title</td>
-            <td>Quantity</td>
-            <td>Delta</td>
-            <td>Avg. price</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Product title</th>
-            <th>Quantity</th>
-            <th>Delta</th>
-            <th>Avg. price</th>
-        </tr>
-    </tfoot>
-</table>
+@try
+{
+    var inventaryItems = Repository.Instance.GetInventaryItems(Repository.InventaryDocId); 
+    
+    <table id="inventary_item_table" class="stripe row-border order-column" style="width:80%">
+        <thead>
+            <tr>
+                <th>Product title</th>
+                <th>Quantity</th>
+                <th>Delta</th>
+                <th>Avg. price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in inventaryItems)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>Delta</td>
+                        <td>Avg. price</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Product title</th>
+                <th>Quantity</th>
+                <th>Delta</th>
+                <th>Avg. price</th>
+            </tr>
+        </tfoot>
+    </table>
+}
+catch (System.Exception e)
+{
+    <p>Unable to draw the table.</p>
+    <p>Exception: @e</p>
+}
 
-<div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
-    <div style="margin-top: 10px; margin-left: 125px; margin-bottom: 10px;">
-        <input type="text" name="product_title" id="product_title" placeholder="Product title" style="width: 350px;">
-        <input type="number" name="quantity" id="quantity" placeholder="Quantity" style="width: 250px;">
-    </div>
+<form method="post">
+    <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
+        <div style="margin-top: 10px; margin-left: 125px; margin-bottom: 10px;">
+            <input type="text" name="product_title" id="product_title" placeholder="Product title" style="width: 350px;">
+            <input type="number" name="quantity" id="quantity" placeholder="Quantity" style="width: 250px;">
+        </div>
 
-    <div style="margin-top: 10px; margin-left: 250px; margin-bottom: 10px;">
-        <input class="home-btn" type="button" value="Add">
-        <input class="home-btn" type="button" value="Edit">
-        <input class="home-btn" type="button" value="Delete">
+        <div style="margin-top: 10px; margin-left: 250px; margin-bottom: 10px;">
+            <input class="home-btn" type="submit" asp-page-handler="AddBtn" value="Add">
+            <input class="home-btn" type="submit" value="Edit">
+            <input class="home-btn" type="submit" value="Delete">
+        </div>
     </div>
-</div>
+</form>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
@@ -93,6 +86,10 @@
                     table.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                     document.getElementById('sticky_buttons').style.visibility = "visible";
+
+                    var rowArray = table.row(this).data(); 
+                    document.getElementById('product_title').value = rowArray[0]; 
+                    document.getElementById('quantity').value = rowArray[1]; 
                 }
             } );
         } ); 

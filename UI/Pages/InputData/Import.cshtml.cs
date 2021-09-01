@@ -52,5 +52,12 @@ namespace Retail.Accounting.Pages
             }
             return RedirectToPage(); 
         }
+
+        public IActionResult OnPostWatchBtn(int document_id)
+        {
+            Repository.ImportDocId = document_id; 
+            _logger.LogInformation($"Request for ImportDoc with ID: {document_id}"); 
+            return RedirectToPage("ImportItem");
+        }
     }
 }

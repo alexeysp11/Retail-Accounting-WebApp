@@ -44,6 +44,20 @@ namespace Retail.Accounting.Services
         }
         #endregion  // ImportDoc
 
+        #region ImportItem
+        public void InsertImportItem(string productTitle, float quantity, 
+            float price, int importDocId)
+        {
+            ImportService.InsertImportItem(productTitle, quantity, price, 
+                importDocId); 
+        }
+
+        public dynamic GetImportItems(int importDocId)
+        {
+            return ImportService.GetImportItems(importDocId); 
+        }
+        #endregion  // ImportItem
+
         #region ExportDoc
         public void InsertExportDoc(string docNum, string employeeName, 
             string purchaserName, DateTime dateTime)
@@ -72,6 +86,20 @@ namespace Retail.Accounting.Services
         }
         #endregion  // ExportDoc
 
+        #region ExportItem
+        public void InsertExportItem(string productTitle, float quantity, 
+            float price, int exportDocId)
+        {
+            ExportService.InsertExportItem(productTitle, quantity, price, 
+                exportDocId);
+        }
+
+        public dynamic GetExportItems(int exportDocId)
+        {
+            return ExportService.GetExportItems(exportDocId);
+        }
+        #endregion  // ExportItem
+
         #region InventaryDoc 
         public void InsertInventaryDoc(string docNum, string employeeName, 
             DateTime dateTime)
@@ -92,6 +120,20 @@ namespace Retail.Accounting.Services
             return InventaryService.GetInventaryDocs(); 
         }
         #endregion  // InventaryDoc 
+
+        #region InventaryItem
+        public void InsertInventaryItem(string productTitle, float quantity, 
+            int inventaryDocId)
+        {
+            InventaryService.InsertInventaryItem(productTitle, quantity, 
+                inventaryDocId); 
+        }
+
+        public dynamic GetInventaryItems(int inventaryDocId)
+        {
+            return InventaryService.GetInventaryItems(inventaryDocId);
+        }
+        #endregion  // InventaryItem
 
         #region Employees
         public void InsertEmployee(string employeeName, float salary, 

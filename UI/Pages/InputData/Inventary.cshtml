@@ -53,7 +53,8 @@ catch (System.Exception e)
 
 <form method="post">
     <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
-        <div style="margin-top: 10px; margin-left: 75px; margin-bottom: 10px;">
+        <div style="margin-top: 10px; margin-left: 0px; margin-bottom: 10px;">
+            <input type="number" name="document_id" id="document_id" value="0" style="visibility: collapse; width: 75px;">
             <input type="text" name="document_number" id="document_number" placeholder="Document number" style="width: 275px;">
             <input type="text" name="employee" id="employee" placeholder="Employee" style="width: 200px;">
             <input type="date" name="date_time" id="date_time" min="2000-01-01" max="2021-12-31" style="width: 200px;">
@@ -63,7 +64,7 @@ catch (System.Exception e)
             <input class="home-btn" type="submit" asp-page-handler="AddBtn" value="Add">
             <input class="home-btn" type="submit" asp-page-handler="EditBtn" value="Edit">
             <input class="home-btn" type="submit" value="Delete">
-            <input class="home-btn" type="submit" value="Watch" asp-area="" asp-page="/InputData/InventaryItem">
+            <input class="home-btn" type="submit" asp-page-handler="WatchBtn" value="Watch">
         </div>
     </div>
 </form>
@@ -97,6 +98,7 @@ catch (System.Exception e)
                     document.getElementById('sticky_buttons').style.visibility = "visible";
 
                     var rowArray = table.row(this).data();
+                    document.getElementById('document_id').value = rowArray[0]; 
                     document.getElementById('document_number').value = rowArray[1]; 
                     document.getElementById('employee').value = rowArray[2]; 
                     //document.getElementById('date_time').value = rowArray[3]; 

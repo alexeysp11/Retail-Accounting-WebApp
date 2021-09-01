@@ -49,5 +49,12 @@ namespace Retail.Accounting.Pages
             }
             return RedirectToPage(); 
         }
+
+        public IActionResult OnPostWatchBtn(int document_id)
+        {
+            Repository.InventaryDocId = document_id; 
+            _logger.LogInformation($"Request for InventaryDoc with ID: {document_id}"); 
+            return RedirectToPage("InventaryItem");
+        }
     }
 }

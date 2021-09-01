@@ -64,7 +64,7 @@ namespace Retail.Accounting.Services
             return inventaryDocs; 
         }
 
-        public static dynamic GetInventaryItem(int inventaryDocId)
+        public static dynamic GetInventaryItems(int inventaryDocId)
         {
             object inventaryItems; 
             using (var db = new AccountingContext())
@@ -72,11 +72,11 @@ namespace Retail.Accounting.Services
                 inventaryItems = (from ii in db.Set<InventaryItem>()
                     from p in db.Set<Product>().Where(p => ii.ProductId == p.ProductId)
                     where ii.InventaryDocId == inventaryDocId
-                    select new 
+                    select new InventaryItemInfo
                     { 
-                        itemId = ii.InventaryItemId, 
-                        productTitle = p.Title, 
-                        quantity = ii.Quantity 
+                        InventaryItemId = ii.InventaryItemId, 
+                        ProductName = p.Title, 
+                        Quantity = ii.Quantity 
                     }).ToList(); 
             }
             return inventaryItems; 

@@ -21,5 +21,22 @@ namespace Retail.Accounting.Pages
         {
 
         }
+
+        public IActionResult OnPostAddBtn(string product_title, float quantity)
+        {
+            bool isProductCorrect = (product_title != null && product_title != string.Empty);
+            bool isQuantityCorrect = (quantity >= 0);
+            bool isDocumentIdCorrect = (Repository.InventaryDocId > 0);
+
+            _logger.LogInformation($"OnPostAddBtn (product_title: {product_title}, quantity: {quantity}) for InventaryDocId = {Repository.InventaryDocId})"); 
+
+            if (isProductCorrect && isQuantityCorrect && isDocumentIdCorrect)
+            {
+                Repository.Instance.InsertInventaryItem(product_title, quantity, 
+                    Repository.InventaryDocId); 
+                _logger.LogInformation($"Added ExportItem (product_title: {product_title}, quantity: {quantity}) for InventaryDocId = {Repository.InventaryDocId})"); 
+            }
+            return RedirectToPage(); 
+        }
     }
 }

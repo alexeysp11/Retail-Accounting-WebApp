@@ -68,7 +68,7 @@ namespace Retail.Accounting.Services
             return importDocs; 
         }
 
-        public static dynamic GetImportItem(int importDocId)
+        public static dynamic GetImportItems(int importDocId)
         {
             object importItems; 
             using (var db = new AccountingContext())
@@ -76,12 +76,13 @@ namespace Retail.Accounting.Services
                 importItems = (from ii in db.Set<ImportItem>()
                     from p in db.Set<Product>().Where(p => ii.ProductId == p.ProductId)
                     where ii.ImportDocId == importDocId
-                    select new 
+                    select new ImportItemInfo 
                     { 
-                        itemId = ii.ImportItemId, 
-                        productTitle = p.Title, 
-                        quantity = ii.Quantity,
-                        price = ii.Price
+                        ImportItemId = ii.ImportItemId, 
+                        ProductName = p.Title, 
+                        Quantity = ii.Quantity,
+                        Price = ii.Price, 
+                        TotalPrice = ii.Quantity * ii.Price
                     }).ToList(); 
             }
             return importItems; 

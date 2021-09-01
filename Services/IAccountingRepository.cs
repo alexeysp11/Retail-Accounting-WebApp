@@ -28,5 +28,17 @@ namespace Retail.Accounting.Services
         void InsertClient(string clientName, string company, string email, 
             string phone); 
         List<Client> GetClients(); 
+
+        void InsertImportItem(string productTitle, float quantity, 
+            float price, int importDocId); 
+        dynamic GetImportItems(int importDocId); 
+        
+        void InsertExportItem(string productTitle, float quantity, 
+            float price, int exportDocId); 
+        dynamic GetExportItems(int exportDocId);
+        
+        void InsertInventaryItem(string productTitle, float quantity, 
+            int inventaryDocId); 
+        dynamic GetInventaryItems(int inventaryDocId);
     }
 }
