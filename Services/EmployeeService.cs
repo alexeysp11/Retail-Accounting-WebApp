@@ -62,5 +62,47 @@ namespace Retail.Accounting.Services
             }
             return employees; 
         }
+
+        public static void UpdateEmployee(int employeeId, string employeeName, 
+            float salary, string email, string phone, int? managerId, 
+            int? departmentId)
+        {
+            using (var db = new AccountingContext())
+            {
+                var employee = db.Employee
+                    .Where(p => p.EmployeeId == employeeId)
+                    .ToList()
+                    .First(); 
+                
+                employee.EmployeeName = employeeName; 
+                employee.Salary = salary; 
+                employee.Email = email; 
+                employee.Phone = phone; 
+                employee.ManagerId = managerId; 
+                employee.DepartmentId = departmentId; 
+
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteEmployee(int employeeId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var employee = db.Employee
+                        .Where(ed => ed.EmployeeId == employeeId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(employee);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

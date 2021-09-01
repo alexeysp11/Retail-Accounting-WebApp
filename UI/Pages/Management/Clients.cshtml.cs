@@ -39,19 +39,28 @@ namespace Retail.Accounting.Pages
             return RedirectToPage(); 
         }
 
-        public IActionResult OnPostEditBtn(string client_name, string company, 
-            string email, string phone)
+        public IActionResult OnPostEditBtn(int client_id, string client_name, 
+            string company, string email, string phone)
         {
-            bool isClientCorrect = (client_name != null && client_name != string.Empty);
+            bool isClientIdCorrect = (client_id > 0); 
+            bool isClientNameCorrect = (client_name != null && client_name != string.Empty);
             bool isCompanyCorrect = (company != null && company != string.Empty);
             bool isEmailCorrect = (email != null && email != string.Empty);
             bool isPhoneCorrect = (phone != null && phone != string.Empty);
 
-            if (isClientCorrect && isCompanyCorrect && isEmailCorrect && 
-                isPhoneCorrect)
+            if (isClientIdCorrect && isClientNameCorrect && isCompanyCorrect && 
+                isEmailCorrect && isPhoneCorrect)
             {
+                Repository.Instance.UpdateClient(client_id, client_name, email, 
+                    phone); 
                 _logger.LogInformation($"Edited a Client (client_name: {client_name}, company: {company})"); 
             }
+            return RedirectToPage(); 
+        }
+
+        public IActionResult OnPostDeleteBtn(int client_id)
+        {
+            Repository.Instance.DeleteClient(client_id);
             return RedirectToPage(); 
         }
     }

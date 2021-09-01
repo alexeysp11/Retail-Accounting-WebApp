@@ -42,21 +42,32 @@ namespace Retail.Accounting.Pages
             return RedirectToPage(); 
         }
 
-        public IActionResult OnPostEditBtn(string employee_name, string manager_name, 
-            string department, float salary, string email, string phone)
+        public IActionResult OnPostEditBtn(int employee_id, string employee_name, 
+            string manager_name, string department, float salary, string email, 
+            string phone)
         {
-            bool isEmployeeCorrect = (employee_name != null && employee_name != string.Empty);
+            bool isEmployeeIdCorrect = (employee_id > 0);
+            bool isEmployeeNameCorrect = (employee_name != null && employee_name != string.Empty);
             bool isManagerCorrect = (manager_name != null && manager_name != string.Empty);
             bool isDepartmentCorrect = (department != null && department != string.Empty);
             bool isSalaryCorrect = (salary > 0);
             bool isEmailCorrect = (email != null && email != string.Empty);
             bool isPhoneCorrect = (phone != null && phone != string.Empty);
 
-            if (isEmployeeCorrect && isManagerCorrect && isDepartmentCorrect && 
+            if (isEmployeeIdCorrect && isEmployeeNameCorrect && 
+                isManagerCorrect && isDepartmentCorrect && 
                 isSalaryCorrect && isEmailCorrect && isPhoneCorrect)
             {
+                Repository.Instance.UpdateEmployee(employee_id, employee_name, 
+                    salary, email, phone, manager_name, department); 
                 _logger.LogInformation($"Edited an Employee (employee_name: {employee_name}, manager_name: {manager_name}, department: {department})"); 
             }
+            return RedirectToPage(); 
+        }
+
+        public IActionResult OnPostDeleteBtn(int employee_id)
+        {
+            Repository.Instance.DeleteEmployee(employee_id);
             return RedirectToPage(); 
         }
     }

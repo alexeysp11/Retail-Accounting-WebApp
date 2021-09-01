@@ -38,8 +38,8 @@ namespace Retail.Accounting.Pages
             return RedirectToPage(); 
         }
 
-        public IActionResult OnPostEditBtn(string document_number, string employee, 
-            string purchaser, DateTime date_time)
+        public IActionResult OnPostEditBtn(int document_id, string document_number, 
+            string employee, string purchaser, DateTime date_time)
         {
             bool isNumberCorrect = (document_number != null && document_number != string.Empty);
             bool isEmployeeCorrect = (employee != null && employee != string.Empty);
@@ -47,8 +47,16 @@ namespace Retail.Accounting.Pages
 
             if (isNumberCorrect && isEmployeeCorrect && isPurchaserCorrect)
             {
-                _logger.LogInformation($"Export, EditBtn\ndocument_number: {document_number}, employee: {employee}, purchaser: {purchaser}, date_time: {date_time}"); 
+                Repository.Instance.UpdateExportDoc(document_id, document_number, 
+                    employee, purchaser, date_time); 
+                _logger.LogInformation($"Edited Export (document_number: {document_number}, employee: {employee}, purchaser: {purchaser}, date_time: {date_time})"); 
             }
+            return RedirectToPage(); 
+        }
+
+        public IActionResult OnPostDeleteBtn(int document_id)
+        {
+            Repository.Instance.DeleteExportDoc(document_id); 
             return RedirectToPage(); 
         }
 

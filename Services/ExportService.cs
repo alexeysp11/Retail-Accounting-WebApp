@@ -87,5 +87,91 @@ namespace Retail.Accounting.Services
             }
             return exportItems; 
         }
+
+        public static void UpdateExportDoc(int exportDocId, string docNum, 
+            int employeeId, int purchaserId, DateTime dateTime)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var exportDocs = db.ExportDocs
+                        .Where(id => id.ExportDocId == exportDocId)
+                        .ToList(); 
+                    exportDocs[0].DocNum = docNum; 
+                    exportDocs[0].EmployeeId = employeeId; 
+                    exportDocs[0].PurchaserId = purchaserId; 
+                    exportDocs[0].DateTime = dateTime; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void UpdateExportItem(int exportItemId, int productId, 
+            float quantity, float price)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var exportItems = db.ExportItems
+                        .Where(ei => ei.ExportItemId == exportItemId)
+                        .ToList(); 
+                    
+                    exportItems[0].ProductId = productId; 
+                    exportItems[0].Quantity = quantity; 
+                    exportItems[0].Price = price; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteExportDoc(int exportDocId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var exportDoc = db.ExportDocs
+                        .Where(ed => ed.ExportDocId == exportDocId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(exportDoc);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteExportItem(int exportItemId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var exportItem = db.ExportItems
+                        .Where(ei => ei.ExportItemId == exportItemId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(exportItem);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

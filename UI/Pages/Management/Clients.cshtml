@@ -16,6 +16,7 @@
     <table id="clients_table" class="stripe row-border order-column" style="width:80%">
         <thead>
             <tr>
+                <th>Client ID</th>
                 <th>Client name</th>
                 <th>Company</th>
                 <th>Email</th>
@@ -27,6 +28,7 @@
                 foreach (var client in clients)
                 {
                     <tr>
+                        <td>@client.ClientId</td>
                         <td>@client.ClientName</td>
                         <td>Company</td>
                         <td>@client.Email</td>
@@ -37,6 +39,7 @@
         </tbody>
         <tfoot>
             <tr>
+                <th>Client ID</th>
                 <th>Client name</th>
                 <th>Company</th>
                 <th>Email</th>
@@ -53,7 +56,8 @@ catch (System.Exception e)
 
 <form method="post">
     <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
-        <div style="margin-top: 10px; margin-left: 75px; margin-bottom: 10px;">
+        <div style="margin-top: 10px; margin-left: 0px; margin-bottom: 10px;">
+            <input type="number" name="client_id" id="client_id" value="0" style="width: 75px; visibility: hidden;">
             <input type="text" name="client_name" id="client_name" placeholder="Client name">
             <input type="text" name="company" id="company" placeholder="Company">
             <input type="text" name="email" id="email" placeholder="Email">
@@ -63,7 +67,7 @@ catch (System.Exception e)
         <div style="margin-top: 10px; margin-left: 250px; margin-bottom: 10px;">
             <input class="home-btn" type="submit" asp-page-handler="AddBtn" value="Add">
             <input class="home-btn" type="submit" asp-page-handler="EditBtn" value="Edit">
-            <input class="home-btn" type="submit" value="Delete">
+            <input class="home-btn" type="submit" asp-page-handler="DeleteBtn" value="Delete">
         </div>
     </div>
 </form>
@@ -76,7 +80,15 @@ catch (System.Exception e)
         let isRowSelected = false; 
         
         $(document).ready(function() {
-            var table = $('#clients_table').DataTable();
+            var table = $('#clients_table').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ]
+            });
 
             $('#clients_table tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
@@ -89,10 +101,11 @@ catch (System.Exception e)
                     document.getElementById('sticky_buttons').style.visibility = "visible";
                     
                     var rowArray = table.row(this).data();
-                    document.getElementById('client_name').value = rowArray[0]; 
-                    document.getElementById('company').value = rowArray[1]; 
-                    document.getElementById('email').value = rowArray[2]; 
-                    document.getElementById('phone').value = rowArray[3]; 
+                    document.getElementById('client_id').value = rowArray[0]; 
+                    document.getElementById('client_name').value = rowArray[1]; 
+                    document.getElementById('company').value = rowArray[2]; 
+                    document.getElementById('email').value = rowArray[3]; 
+                    document.getElementById('phone').value = rowArray[4]; 
                 }
             } );
         } ); 

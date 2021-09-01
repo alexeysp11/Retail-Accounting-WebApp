@@ -81,5 +81,89 @@ namespace Retail.Accounting.Services
             }
             return inventaryItems; 
         }
+
+        public static void UpdateInventaryDoc(int inventaryDocId, string docNum, 
+            int employeeId, DateTime dateTime)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var inventaryDocs = db.InventaryDocs
+                        .Where(id => id.InventaryDocId == inventaryDocId)
+                        .ToList(); 
+                    inventaryDocs[0].DocNum = docNum; 
+                    inventaryDocs[0].EmployeeId = employeeId; 
+                    inventaryDocs[0].DateTime = dateTime; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void UpdateInventaryItem(int inventaryItemId, int productId, 
+            float quantity) 
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var inventaryItems = db.InventaryItems
+                        .Where(ii => ii.InventaryItemId == inventaryItemId)
+                        .ToList(); 
+                    
+                    inventaryItems[0].ProductId = productId; 
+                    inventaryItems[0].Quantity = quantity; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteInventaryDoc(int inventaryDocId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var inventaryDoc = db.InventaryDocs
+                        .Where(ed => ed.InventaryDocId == inventaryDocId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(inventaryDoc);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteInventaryItem(int inventaryItemId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var inventaryItem = db.InventaryItems
+                        .Where(ii => ii.InventaryItemId == inventaryItemId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(inventaryItem);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

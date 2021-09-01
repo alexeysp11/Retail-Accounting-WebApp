@@ -41,5 +41,27 @@ namespace Retail.Accounting.Pages
             }
             return RedirectToPage(); 
         }
+
+        public IActionResult OnPostEditBtn(int item_id, string product_title, 
+            float quantity, float item_price)
+        {
+            bool isProductCorrect = (product_title != null && product_title != string.Empty);
+            bool isQuantityCorrect = (quantity >= 0);
+            bool isPriceCorrect = (item_price >= 0);
+
+            if (isProductCorrect && isQuantityCorrect && isPriceCorrect)
+            {
+                Repository.Instance.UpdateExportItem(item_id, product_title, 
+                    quantity, item_price); 
+                _logger.LogInformation($"Edit ExportItem (product_title: {product_title}, quantity: {quantity}, item_price: {item_price})"); 
+            }
+            return RedirectToPage(); 
+        }
+
+        public IActionResult OnPostDeleteBtn(int item_id)
+        {
+            Repository.Instance.DeleteExportItem(item_id); 
+            return RedirectToPage(); 
+        }
     }
 }

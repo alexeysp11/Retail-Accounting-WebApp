@@ -87,5 +87,91 @@ namespace Retail.Accounting.Services
             }
             return importItems; 
         }
+
+        public static void UpdateImportDoc(int importDocId, string docNum, 
+            int employeeId, int supplierId, DateTime dateTime)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var importDocs = db.ImportDocs
+                        .Where(id => id.ImportDocId == importDocId)
+                        .ToList(); 
+                    importDocs[0].DocNum = docNum; 
+                    importDocs[0].EmployeeId = employeeId; 
+                    importDocs[0].SupplierId = supplierId; 
+                    importDocs[0].DateTime = dateTime; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void UpdateImportItem(int importItemId, int productId, 
+            float quantity, float price)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var importItems = db.ImportItems
+                        .Where(ii => ii.ImportItemId == importItemId)
+                        .ToList(); 
+                    
+                    importItems[0].ProductId = productId; 
+                    importItems[0].Quantity = quantity; 
+                    importItems[0].Price = price; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteImportDoc(int importDocId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var importDoc = db.ImportDocs
+                        .Where(ii => ii.ImportDocId == importDocId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(importDoc);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteImportItem(int importItemId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var importItem = db.ImportItems
+                        .Where(ii => ii.ImportItemId == importItemId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(importItem);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

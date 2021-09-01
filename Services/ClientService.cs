@@ -52,5 +52,48 @@ namespace Retail.Accounting.Services
             }
             return clients; 
         }
+
+        public static void UpdateClient(int clientId, string clientName, 
+            string email, string phone)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var client = db.Client
+                        .Where(ii => ii.ClientId == clientId)
+                        .ToList()
+                        .First(); 
+                    client.ClientName = clientName; 
+                    client.Email = email; 
+                    client.Phone = phone; 
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteClient(int clientId)
+        {
+            try
+            {
+                using (var db = new AccountingContext())
+                {
+                    var client = db.Client
+                        .Where(c => c.ClientId == clientId)
+                        .ToList()
+                        .First(); 
+                    db.Remove(client);
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
