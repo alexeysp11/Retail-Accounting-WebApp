@@ -57,6 +57,7 @@ namespace Retail.Accounting.Pages
         public IActionResult OnPostDeleteBtn(int document_id)
         {
             Repository.Instance.DeleteExportDoc(document_id); 
+            _logger.LogInformation($"Deleted ExportDoc with ID: {document_id}"); 
             return RedirectToPage(); 
         }
 

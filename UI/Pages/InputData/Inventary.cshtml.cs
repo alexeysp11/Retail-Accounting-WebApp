@@ -47,7 +47,7 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.UpdateInventaryDoc(document_id, document_number, 
                     employee, date_time); 
-                _logger.LogInformation($"Inventary, EditBtn\ndocument_number: {document_number}, employee: {employee}, date_time: {date_time}"); 
+                _logger.LogInformation($"Edited InventaryDoc (document_number: {document_number}, employee: {employee}, date_time: {date_time})"); 
             }
             return RedirectToPage(); 
         }
@@ -55,6 +55,7 @@ namespace Retail.Accounting.Pages
         public IActionResult OnPostDeleteBtn(int document_id)
         {
             Repository.Instance.DeleteInventaryDoc(document_id);
+            _logger.LogInformation($"Deleted InventaryDoc with ID: {document_id}"); 
             return RedirectToPage(); 
         }
 

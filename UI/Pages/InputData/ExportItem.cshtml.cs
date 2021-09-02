@@ -29,9 +29,7 @@ namespace Retail.Accounting.Pages
             bool isQuantityCorrect = (quantity >= 0);
             bool isPriceCorrect = (item_price >= 0);
             bool isDocumentIdCorrect = (Repository.ExportDocId > 0);
-
-            _logger.LogInformation($"OnPostAddBtn (product_title: {product_title}, quantity: {quantity}, item_price: {item_price}) for ExportDocId = {Repository.ExportDocId})"); 
-
+            
             if (isProductCorrect && isQuantityCorrect && isPriceCorrect && 
                 isDocumentIdCorrect)
             {
@@ -61,6 +59,7 @@ namespace Retail.Accounting.Pages
         public IActionResult OnPostDeleteBtn(int item_id)
         {
             Repository.Instance.DeleteExportItem(item_id); 
+            _logger.LogInformation($"Deleted ExportItem with ID: {item_id}"); 
             return RedirectToPage(); 
         }
     }

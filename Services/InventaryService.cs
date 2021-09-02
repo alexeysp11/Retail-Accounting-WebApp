@@ -46,7 +46,7 @@ namespace Retail.Accounting.Services
             }
         }
 
-        public static dynamic GetInventaryDocs()
+        public static IEnumerable<InventaryDocInfo> GetInventaryDocs()
         {
             IEnumerable<InventaryDocInfo> inventaryDocs; 
             using (var db = new AccountingContext())
@@ -64,9 +64,9 @@ namespace Retail.Accounting.Services
             return inventaryDocs; 
         }
 
-        public static dynamic GetInventaryItems(int inventaryDocId)
+        public static IEnumerable<InventaryItemInfo> GetInventaryItems(int inventaryDocId)
         {
-            object inventaryItems; 
+            IEnumerable<InventaryItemInfo> inventaryItems; 
             using (var db = new AccountingContext())
             {
                 inventaryItems = (from ii in db.Set<InventaryItem>()
@@ -89,12 +89,13 @@ namespace Retail.Accounting.Services
             {
                 using (var db = new AccountingContext())
                 {
-                    var inventaryDocs = db.InventaryDocs
+                    var inventaryDoc = db.InventaryDocs
                         .Where(id => id.InventaryDocId == inventaryDocId)
-                        .ToList(); 
-                    inventaryDocs[0].DocNum = docNum; 
-                    inventaryDocs[0].EmployeeId = employeeId; 
-                    inventaryDocs[0].DateTime = dateTime; 
+                        .ToList()
+                        .First(); 
+                    inventaryDoc.DocNum = docNum; 
+                    inventaryDoc.EmployeeId = employeeId; 
+                    inventaryDoc.DateTime = dateTime; 
                     db.SaveChanges();
                 }
             }
@@ -111,12 +112,12 @@ namespace Retail.Accounting.Services
             {
                 using (var db = new AccountingContext())
                 {
-                    var inventaryItems = db.InventaryItems
+                    var inventaryItem = db.InventaryItems
                         .Where(ii => ii.InventaryItemId == inventaryItemId)
-                        .ToList(); 
-                    
-                    inventaryItems[0].ProductId = productId; 
-                    inventaryItems[0].Quantity = quantity; 
+                        .ToList()
+                        .First(); 
+                    inventaryItem.ProductId = productId; 
+                    inventaryItem.Quantity = quantity; 
                     db.SaveChanges();
                 }
             }

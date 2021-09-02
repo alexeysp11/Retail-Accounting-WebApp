@@ -48,7 +48,7 @@ namespace Retail.Accounting.Services
             }
         }
 
-        public static dynamic GetImportDocs()
+        public static IEnumerable<ImportDocInfo> GetImportDocs()
         {
             IEnumerable<ImportDocInfo> importDocs; 
             using (var db = new AccountingContext())
@@ -68,9 +68,9 @@ namespace Retail.Accounting.Services
             return importDocs; 
         }
 
-        public static dynamic GetImportItems(int importDocId)
+        public static IEnumerable<ImportItemInfo> GetImportItems(int importDocId)
         {
-            object importItems; 
+            IEnumerable<ImportItemInfo> importItems; 
             using (var db = new AccountingContext())
             {
                 importItems = (from ii in db.Set<ImportItem>()
@@ -95,13 +95,14 @@ namespace Retail.Accounting.Services
             {
                 using (var db = new AccountingContext())
                 {
-                    var importDocs = db.ImportDocs
+                    var importDoc = db.ImportDocs
                         .Where(id => id.ImportDocId == importDocId)
-                        .ToList(); 
-                    importDocs[0].DocNum = docNum; 
-                    importDocs[0].EmployeeId = employeeId; 
-                    importDocs[0].SupplierId = supplierId; 
-                    importDocs[0].DateTime = dateTime; 
+                        .ToList()
+                        .First(); 
+                    importDoc.DocNum = docNum; 
+                    importDoc.EmployeeId = employeeId; 
+                    importDoc.SupplierId = supplierId; 
+                    importDoc.DateTime = dateTime; 
                     db.SaveChanges();
                 }
             }
@@ -118,13 +119,13 @@ namespace Retail.Accounting.Services
             {
                 using (var db = new AccountingContext())
                 {
-                    var importItems = db.ImportItems
+                    var importItem = db.ImportItems
                         .Where(ii => ii.ImportItemId == importItemId)
-                        .ToList(); 
-                    
-                    importItems[0].ProductId = productId; 
-                    importItems[0].Quantity = quantity; 
-                    importItems[0].Price = price; 
+                        .ToList()
+                        .First(); 
+                    importItem.ProductId = productId; 
+                    importItem.Quantity = quantity; 
+                    importItem.Price = price; 
                     db.SaveChanges();
                 }
             }

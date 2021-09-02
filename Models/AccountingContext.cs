@@ -27,7 +27,7 @@ namespace Retail.Accounting.Models
 
         public AccountingContext()
         {
-            DbPath = $"C:\\Users\\User\\Desktop\\projects\\Retail-Accounting-WebApp\\DB\\accounting.db";
+            DbPath = "C:\\Users\\User\\Desktop\\projects\\Retail-Accounting-WebApp\\DB\\accounting.db";
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

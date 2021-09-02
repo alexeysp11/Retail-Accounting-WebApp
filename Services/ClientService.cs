@@ -30,7 +30,6 @@ namespace Retail.Accounting.Services
                 var clientList = db.Client
                     .Where(c => c.ClientName == clientName)
                     .ToList(); 
-                
                 if (clientList.Count != 0)
                 {
                     clientId = clientList[0].ClientId; 

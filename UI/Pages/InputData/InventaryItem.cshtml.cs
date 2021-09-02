@@ -28,8 +28,6 @@ namespace Retail.Accounting.Pages
             bool isQuantityCorrect = (quantity >= 0);
             bool isDocumentIdCorrect = (Repository.InventaryDocId > 0);
 
-            _logger.LogInformation($"OnPostAddBtn (product_title: {product_title}, quantity: {quantity}) for InventaryDocId = {Repository.InventaryDocId})"); 
-
             if (isProductCorrect && isQuantityCorrect && isDocumentIdCorrect)
             {
                 Repository.Instance.InsertInventaryItem(product_title, quantity, 
@@ -57,6 +55,7 @@ namespace Retail.Accounting.Pages
         public IActionResult OnPostDeleteBtn(int item_id)
         {
             Repository.Instance.DeleteInventaryItem(item_id);
+            _logger.LogInformation($"Deleted InventaryItem with ID: {item_id}"); 
             return RedirectToPage(); 
         }
     }

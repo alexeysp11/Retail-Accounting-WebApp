@@ -8,21 +8,21 @@ namespace Retail.Accounting.Services
     {
         void InsertImportDoc(string docNum, string employeeName, 
             string supplierName, DateTime dateTime); 
-        dynamic GetImportDocs(); 
+        IEnumerable<ImportDocInfo> GetImportDocs(); 
         void UpdateImportDoc(int importDocId, string docNum, 
             string employeeName, string supplierName, DateTime dateTime); 
         void DeleteImportDoc(int importDocId); 
 
         void InsertExportDoc(string docNum, string employeeName, 
             string purchaserName, DateTime dateTime); 
-        dynamic GetExportDocs(); 
+        IEnumerable<ExportDocInfo> GetExportDocs(); 
         void UpdateExportDoc(int exportDocId, string docNum, 
             string employeeName, string purchaserName, DateTime dateTime); 
         void DeleteExportDoc(int exportDocId); 
 
         void InsertInventaryDoc(string docNum, string employeeName, 
             DateTime dateTime); 
-        dynamic GetInventaryDocs(); 
+        IEnumerable<InventaryDocInfo> GetInventaryDocs(); 
         void UpdateInventaryDoc(int inventaryDocId, string docNum, 
             string employeeName, DateTime dateTime); 
         void DeleteInventaryDoc(int inventaryDocId); 
@@ -45,21 +45,21 @@ namespace Retail.Accounting.Services
 
         void InsertImportItem(string productTitle, float quantity, 
             float price, int importDocId); 
-        dynamic GetImportItems(int importDocId); 
+        IEnumerable<ImportItemInfo> GetImportItems(int importDocId); 
         void UpdateImportItem(int importItemId, string productTitle, 
             float quantity, float price); 
         void DeleteImportItem(int importItemId); 
         
         void InsertExportItem(string productTitle, float quantity, 
             float price, int exportDocId); 
-        dynamic GetExportItems(int exportDocId);
+        IEnumerable<ExportItemInfo> GetExportItems(int exportDocId);
         void UpdateExportItem(int exportItemId, string productTitle, 
             float quantity, float price); 
         void DeleteExportItem(int exportItemId); 
         
         void InsertInventaryItem(string productTitle, float quantity, 
             int inventaryDocId); 
-        dynamic GetInventaryItems(int inventaryDocId);
+        IEnumerable<InventaryItemInfo> GetInventaryItems(int inventaryDocId);
         void UpdateInventaryItem(int inventaryItemId, string productTitle, 
             float quantity); 
         void DeleteInventaryItem(int inventaryItemId); 

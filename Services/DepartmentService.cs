@@ -14,7 +14,6 @@ namespace Retail.Accounting.Services
                 var departmentList = db.Department
                     .Where(p => p.Title == departmentTitle)
                     .ToList(); 
-                
                 if (departmentList.Count == 0)
                 {
                     db.Add(new Department { Title = departmentTitle });
@@ -31,7 +30,6 @@ namespace Retail.Accounting.Services
                 var departmentList = db.Department
                     .Where(d => d.Title == departmentTitle)
                     .ToList(); 
-                
                 if (departmentList.Count != 0)
                 {
                     departmentId = departmentList[0].DepartmentId; 

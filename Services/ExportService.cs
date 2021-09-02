@@ -31,12 +31,15 @@ namespace Retail.Accounting.Services
                 ProductService.InsertProductIfNotExists(productTitle); 
                 using (var db = new AccountingContext())
                 {
-                    var product = db.Product.Where(p => p.Title == productTitle).ToList(); 
+                    var product = db.Product
+                        .Where(p => p.Title == productTitle)
+                        .ToList()
+                        .First(); 
                     db.Add(new ExportItem 
                     { 
                         Quantity = quantity, 
                         Price = price, 
-                        ProductId = product[0].ProductId, 
+                        ProductId = product.ProductId, 
                         ExportDocId = exportDocId 
                     });
                     db.SaveChanges();
@@ -48,7 +51,7 @@ namespace Retail.Accounting.Services
             }
         }
 
-        public static dynamic GetExportDocs()
+        public static IEnumerable<ExportDocInfo> GetExportDocs()
         {
             IEnumerable<ExportDocInfo> exportDocs; 
             using (var db = new AccountingContext())
@@ -68,9 +71,9 @@ namespace Retail.Accounting.Services
             return exportDocs; 
         }
 
-        public static dynamic GetExportItems(int exportDocId)
+        public static IEnumerable<ExportItemInfo> GetExportItems(int exportDocId)
         {
-            object exportItems; 
+            IEnumerable<ExportItemInfo> exportItems; 
             using (var db = new AccountingContext())
             {
                 exportItems = (from ei in db.Set<ExportItem>()
@@ -95,13 +98,14 @@ namespace Retail.Accounting.Services
             {
                 using (var db = new AccountingContext())
                 {
-                    var exportDocs = db.ExportDocs
+                    var exportDoc = db.ExportDocs
                         .Where(id => id.ExportDocId == exportDocId)
-                        .ToList(); 
-                    exportDocs[0].DocNum = docNum; 
-                    exportDocs[0].EmployeeId = employeeId; 
-                    exportDocs[0].PurchaserId = purchaserId; 
-                    exportDocs[0].DateTime = dateTime; 
+                        .ToList()
+                        .First(); 
+                    exportDoc.DocNum = docNum; 
+                    exportDoc.EmployeeId = employeeId; 
+                    exportDoc.PurchaserId = purchaserId; 
+                    exportDoc.DateTime = dateTime; 
                     db.SaveChanges();
                 }
             }
@@ -118,13 +122,13 @@ namespace Retail.Accounting.Services
             {
                 using (var db = new AccountingContext())
                 {
-                    var exportItems = db.ExportItems
+                    var exportItem = db.ExportItems
                         .Where(ei => ei.ExportItemId == exportItemId)
-                        .ToList(); 
-                    
-                    exportItems[0].ProductId = productId; 
-                    exportItems[0].Quantity = quantity; 
-                    exportItems[0].Price = price; 
+                        .ToList()
+                        .First(); 
+                    exportItem.ProductId = productId; 
+                    exportItem.Quantity = quantity; 
+                    exportItem.Price = price; 
                     db.SaveChanges();
                 }
             }

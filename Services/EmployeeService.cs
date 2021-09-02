@@ -15,7 +15,6 @@ namespace Retail.Accounting.Services
                 var employeeList = db.Employee
                     .Where(p => p.EmployeeName == employeeName)
                     .ToList(); 
-                
                 if (employeeList.Count == 0)
                 {
                     db.Add(new Employee 
@@ -40,7 +39,6 @@ namespace Retail.Accounting.Services
                 var employeeList = db.Employee
                     .Where(e => e.EmployeeName == employeeName)
                     .ToList(); 
-                
                 if (employeeList.Count != 0)
                 {
                     employeeId = employeeList[0].EmployeeId; 
@@ -73,7 +71,6 @@ namespace Retail.Accounting.Services
                     .Where(p => p.EmployeeId == employeeId)
                     .ToList()
                     .First(); 
-                
                 employee.EmployeeName = employeeName; 
                 employee.Salary = salary; 
                 employee.Email = email; 

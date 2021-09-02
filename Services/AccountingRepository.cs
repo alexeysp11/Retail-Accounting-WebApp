@@ -29,7 +29,7 @@ namespace Retail.Accounting.Services
             ImportService.InsertImportDoc(docNum, (int)employeeId, (int)supplierId, dateTime); 
         }
 
-        public dynamic GetImportDocs()
+        public IEnumerable<ImportDocInfo> GetImportDocs()
         {
             return ImportService.GetImportDocs(); 
         }
@@ -70,7 +70,7 @@ namespace Retail.Accounting.Services
                 importDocId); 
         }
 
-        public dynamic GetImportItems(int importDocId)
+        public IEnumerable<ImportItemInfo> GetImportItems(int importDocId)
         {
             return ImportService.GetImportItems(importDocId); 
         }
@@ -121,7 +121,7 @@ namespace Retail.Accounting.Services
             ExportService.InsertExportDoc(docNum, (int)employeeId, (int)purchaserId, dateTime); 
         }
 
-        public dynamic GetExportDocs()
+        public IEnumerable<ExportDocInfo> GetExportDocs()
         {
             return ExportService.GetExportDocs(); 
         }
@@ -162,7 +162,7 @@ namespace Retail.Accounting.Services
                 exportDocId);
         }
 
-        public dynamic GetExportItems(int exportDocId)
+        public IEnumerable<ExportItemInfo> GetExportItems(int exportDocId)
         {
             return ExportService.GetExportItems(exportDocId);
         }
@@ -202,11 +202,10 @@ namespace Retail.Accounting.Services
                     string.Empty, null, null); 
                 employeeId = EmployeeService.GetEmployeeId(employeeName); 
             }
-
             InventaryService.InsertInventaryDoc(docNum, (int)employeeId, dateTime); 
         }
 
-        public dynamic GetInventaryDocs()
+        public IEnumerable<InventaryDocInfo> GetInventaryDocs()
         {
             return InventaryService.GetInventaryDocs(); 
         }
@@ -240,7 +239,7 @@ namespace Retail.Accounting.Services
                 inventaryDocId); 
         }
 
-        public dynamic GetInventaryItems(int inventaryDocId)
+        public IEnumerable<InventaryItemInfo> GetInventaryItems(int inventaryDocId)
         {
             return InventaryService.GetInventaryItems(inventaryDocId);
         }
