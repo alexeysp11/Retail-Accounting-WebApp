@@ -48,10 +48,18 @@
     height: auto; 
 }
 
-/* For datatable */ 
+/* Pages where user can input data */ 
 #sticky_buttons {
     position: absolute;
     top: 390px;
     width: 850px; 
+    height: auto; 
+}
+
+#error_message {
+    position: absolute;
+    top: 0px;
+    left: 80%;
+    width: 150px; 
     height: auto; 
 }

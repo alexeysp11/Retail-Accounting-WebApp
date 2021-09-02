@@ -32,7 +32,14 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.InsertInventaryItem(product_title, quantity, 
                     Repository.InventaryDocId); 
-                _logger.LogInformation($"Added ExportItem (product_title: {product_title}, quantity: {quantity}) for InventaryDocId = {Repository.InventaryDocId})"); 
+                Repository.IsErrorMessageActivatedOnInventaryItem = false; 
+                _logger.LogInformation($"Added InventaryItem (product_title: {product_title}, quantity: {quantity}) for InventaryDocId = {Repository.InventaryDocId})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventaryItem = true; 
+                Repository.ErrorMessageOnInventaryItem = Repository.GetErrorMessage("Add", 
+                    "product title or quantity"); 
             }
             return RedirectToPage(); 
         }
@@ -40,23 +47,46 @@ namespace Retail.Accounting.Pages
         public IActionResult OnPostEditBtn(int item_id, string product_title, 
             float quantity)
         {
+            bool isItemIdCorrect = (item_id > 0); 
             bool isProductCorrect = (product_title != null && product_title != string.Empty);
             bool isQuantityCorrect = (quantity >= 0);
 
-            if (isProductCorrect && isQuantityCorrect)
+            if (isItemIdCorrect && isProductCorrect && isQuantityCorrect)
             {
                 Repository.Instance.UpdateInventaryItem(item_id, product_title, 
                     quantity); 
+                Repository.IsErrorMessageActivatedOnInventaryItem = false; 
                 _logger.LogInformation($"Edit InventaryItem (product_title: {product_title}, quantity: {quantity})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventaryItem = true; 
+                Repository.ErrorMessageOnInventaryItem = Repository.GetErrorMessage("Edit", 
+                    "item ID, product title or quantity"); 
             }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostDeleteBtn(int item_id)
         {
-            Repository.Instance.DeleteInventaryItem(item_id);
-            _logger.LogInformation($"Deleted InventaryItem with ID: {item_id}"); 
+            bool isItemIdCorrect = (item_id > 0); 
+            if (isItemIdCorrect)
+            {
+                Repository.Instance.DeleteInventaryItem(item_id);
+                Repository.IsErrorMessageActivatedOnInventaryItem = false; 
+                _logger.LogInformation($"Deleted InventaryItem with ID: {item_id}"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventaryItem = true; 
+                Repository.ErrorMessageOnInventaryItem = Repository.GetErrorMessage("Delete", "item ID"); 
+            }
             return RedirectToPage(); 
+        }
+
+        public void OnPostCloseErrorBtn()
+        {
+            Repository.IsErrorMessageActivatedOnInventaryItem = false; 
         }
     }
 }

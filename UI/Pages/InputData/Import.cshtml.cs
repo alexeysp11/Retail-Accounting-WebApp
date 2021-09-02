@@ -34,7 +34,14 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.InsertImportDoc(document_number, employee, 
                     supplier, date_time); 
+                Repository.IsErrorMessageActivatedOnImport = false; 
                 _logger.LogInformation($"Added Import (document_number: {document_number}, employee: {employee}, supplier: {supplier}, date_time: {date_time})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnImport = true; 
+                Repository.ErrorMessageOnImport = Repository.GetErrorMessage("Add", 
+                    "document number, employee name or supplier name"); 
             }
             return RedirectToPage(); 
         }
@@ -50,23 +57,56 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.UpdateImportDoc(document_id, document_number, 
                     employee, supplier, date_time);
+                Repository.IsErrorMessageActivatedOnImport = false; 
                 _logger.LogInformation($"Edited Import (document_number: {document_number}, employee: {employee}, supplier: {supplier}, date_time: {date_time})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnImport = true; 
+                Repository.ErrorMessageOnImport = Repository.GetErrorMessage("Edit", 
+                    "document ID, document number, employee name or supplier name"); 
             }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostDeleteBtn(int document_id)
         {
-            Repository.Instance.DeleteImportDoc(document_id); 
-            _logger.LogInformation($"Deleted ImportDoc with ID: {document_id}"); 
+            bool isDocIdCorrect = (document_id > 0); 
+            if (isDocIdCorrect)
+            {
+                Repository.Instance.DeleteImportDoc(document_id); 
+                Repository.IsErrorMessageActivatedOnImport = false; 
+                _logger.LogInformation($"Deleted ImportDoc with ID: {document_id}"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnImport = true; 
+                Repository.ErrorMessageOnImport = Repository.GetErrorMessage("Delete", "document ID"); 
+            }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostWatchBtn(int document_id)
         {
-            Repository.ImportDocId = document_id; 
-            _logger.LogInformation($"Request for ImportDoc with ID: {document_id}"); 
-            return RedirectToPage("ImportItem");
+            bool isDocIdCorrect = (document_id > 0); 
+            if (isDocIdCorrect)
+            {
+                Repository.ImportDocId = document_id; 
+                Repository.IsErrorMessageActivatedOnImport = false; 
+                _logger.LogInformation($"Request for ImportDoc with ID: {document_id}"); 
+                return RedirectToPage("ImportItem");
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnImport = true; 
+                Repository.ErrorMessageOnImport = Repository.GetErrorMessage("Watch", "document ID"); 
+            }
+            return RedirectToPage(); 
+        }
+
+        public void OnPostCloseErrorBtn()
+        {
+            Repository.IsErrorMessageActivatedOnImport = false; 
         }
     }
 }

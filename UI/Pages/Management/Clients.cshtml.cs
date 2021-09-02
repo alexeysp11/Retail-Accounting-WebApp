@@ -34,7 +34,14 @@ namespace Retail.Accounting.Pages
                 isPhoneCorrect)
             {
                 Repository.Instance.InsertClient(client_name, company, email, phone); 
+                Repository.IsErrorMessageActivatedOnClients = false; 
                 _logger.LogInformation($"Added new Client (client_name: {client_name}, company: {company})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnClients = true; 
+                Repository.ErrorMessageOnClients = Repository.GetErrorMessage("Add", 
+                    "client name, company, email or phone"); 
             }
             return RedirectToPage(); 
         }
@@ -53,15 +60,38 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.UpdateClient(client_id, client_name, email, 
                     phone); 
+                Repository.IsErrorMessageActivatedOnClients = false; 
                 _logger.LogInformation($"Edited a Client (client_name: {client_name}, company: {company})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnClients = true; 
+                Repository.ErrorMessageOnClients = Repository.GetErrorMessage("Edit", 
+                    "client ID, client name, company, email or phone"); 
             }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostDeleteBtn(int client_id)
         {
-            Repository.Instance.DeleteClient(client_id);
+            bool isClientIdCorrect = (client_id > 0); 
+            if (isClientIdCorrect)
+            {
+                Repository.Instance.DeleteClient(client_id);
+                Repository.IsErrorMessageActivatedOnClients = false; 
+                _logger.LogInformation($"Deleted client with ID: {client_id}"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnClients = true; 
+                Repository.ErrorMessageOnClients = Repository.GetErrorMessage("Delete", "client ID"); 
+            }
             return RedirectToPage(); 
+        }
+
+        public void OnPostCloseErrorBtn()
+        {
+            Repository.IsErrorMessageActivatedOnClients = false; 
         }
     }
 }

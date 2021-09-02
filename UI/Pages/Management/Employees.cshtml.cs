@@ -37,7 +37,14 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.InsertEmployee(employee_name, salary, email, 
                     phone, manager_name, department); 
+                Repository.IsErrorMessageActivatedOnEmployees = false; 
                 _logger.LogInformation($"Added new Employee (employee_name: {employee_name}, manager_name: {manager_name}, department: {department})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnEmployees = true; 
+                Repository.ErrorMessageOnEmployees = Repository.GetErrorMessage("Add", 
+                    "employee name, manager name, department, salary, email or phone"); 
             }
             return RedirectToPage(); 
         }
@@ -60,15 +67,37 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.UpdateEmployee(employee_id, employee_name, 
                     salary, email, phone, manager_name, department); 
+                Repository.IsErrorMessageActivatedOnEmployees = false; 
                 _logger.LogInformation($"Edited an Employee (employee_name: {employee_name}, manager_name: {manager_name}, department: {department})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnEmployees = true; 
+                Repository.ErrorMessageOnEmployees = Repository.GetErrorMessage("Edit", 
+                    "employee ID, employee name, manager name, department, salary, email or phone"); 
             }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostDeleteBtn(int employee_id)
         {
-            Repository.Instance.DeleteEmployee(employee_id);
+            bool isEmployeeIdCorrect = (employee_id > 0);
+            if (isEmployeeIdCorrect)
+            {
+                Repository.Instance.DeleteEmployee(employee_id);
+                Repository.IsErrorMessageActivatedOnEmployees = false; 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnEmployees = true; 
+                Repository.ErrorMessageOnEmployees = Repository.GetErrorMessage("Delete", "employee ID"); 
+            }
             return RedirectToPage(); 
+        }
+
+        public void OnPostCloseErrorBtn()
+        {
+            Repository.IsErrorMessageActivatedOnEmployees = false; 
         }
     }
 }

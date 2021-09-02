@@ -19,7 +19,7 @@ namespace Retail.Accounting.Pages
 
         public void OnGet()
         {
-
+            
         }
 
         public IActionResult OnPostAddBtn(string document_number, string employee, 
@@ -32,7 +32,14 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.InsertInventaryDoc(document_number, employee, 
                     date_time); 
+                Repository.IsErrorMessageActivatedOnInventary = false; 
                 _logger.LogInformation($"Added new InventaryDoc (document_number: {document_number}, employee: {employee}, date_time: {date_time})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventary = true; 
+                Repository.ErrorMessageOnInventary = Repository.GetErrorMessage("Add", 
+                    "document number or employee name"); 
             }
             return RedirectToPage(); 
         }
@@ -47,23 +54,56 @@ namespace Retail.Accounting.Pages
             {
                 Repository.Instance.UpdateInventaryDoc(document_id, document_number, 
                     employee, date_time); 
+                Repository.IsErrorMessageActivatedOnInventary = false; 
                 _logger.LogInformation($"Edited InventaryDoc (document_number: {document_number}, employee: {employee}, date_time: {date_time})"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventary = true; 
+                Repository.ErrorMessageOnInventary = Repository.GetErrorMessage("Edit", 
+                    "document ID, document number or employee name"); 
             }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostDeleteBtn(int document_id)
         {
-            Repository.Instance.DeleteInventaryDoc(document_id);
-            _logger.LogInformation($"Deleted InventaryDoc with ID: {document_id}"); 
+            bool isDocIdCorrect = (document_id > 0); 
+            if (isDocIdCorrect)
+            {
+                Repository.Instance.DeleteInventaryDoc(document_id);
+                Repository.IsErrorMessageActivatedOnInventary = false; 
+                _logger.LogInformation($"Deleted InventaryDoc with ID: {document_id}"); 
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventary = true; 
+                Repository.ErrorMessageOnInventary = Repository.GetErrorMessage("Delete", "document ID"); 
+            }
             return RedirectToPage(); 
         }
 
         public IActionResult OnPostWatchBtn(int document_id)
         {
-            Repository.InventaryDocId = document_id; 
-            _logger.LogInformation($"Request for InventaryDoc with ID: {document_id}"); 
-            return RedirectToPage("InventaryItem");
+            bool isDocIdCorrect = (document_id > 0); 
+            if (isDocIdCorrect)
+            {
+                Repository.InventaryDocId = document_id; 
+                Repository.IsErrorMessageActivatedOnInventary = false; 
+                _logger.LogInformation($"Request for InventaryDoc with ID: {document_id}"); 
+                return RedirectToPage("InventaryItem");
+            }
+            else
+            {
+                Repository.IsErrorMessageActivatedOnInventary = true; 
+                Repository.ErrorMessageOnInventary = Repository.GetErrorMessage("Watch", "document ID"); 
+            }
+            return RedirectToPage(); 
+        }
+
+        public void OnPostCloseErrorBtn()
+        {
+            Repository.IsErrorMessageActivatedOnInventary = false; 
         }
     }
 }
