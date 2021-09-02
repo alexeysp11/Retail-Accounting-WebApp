@@ -20,7 +20,7 @@
                 <th>Document number</th>
                 <th>Employee</th>
                 <th>Purchaser</th>
-                <th>Date/time</th>
+                <th>Date</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
                         <td>@doc.DocNum</td>
                         <td>@doc.EmployeeName</td>
                         <td>@doc.PurchaserName</td>
-                        <td>@doc.DateTime</td>
+                        <td>@doc.DateTime.Date.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</td>
                     </tr>
                 }
             }
@@ -43,7 +43,7 @@
                 <th>Document number</th>
                 <th>Employee</th>
                 <th>Purchaser</th>
-                <th>Date/time</th>
+                <th>Date</th>
             </tr>
         </tfoot>
     </table>
@@ -106,7 +106,7 @@ catch (System.Exception e)
                     document.getElementById('document_number').value = rowArray[1]; 
                     document.getElementById('employee').value = rowArray[2]; 
                     document.getElementById('purchaser').value = rowArray[3]; 
-                    //document.getElementById('date_time').value = rowArray[4]; 
+                    document.getElementById("date_time").valueAsDate = getDateFromMMDDYYYY(rowArray[4]);
                 }
             } );
         } ); 
