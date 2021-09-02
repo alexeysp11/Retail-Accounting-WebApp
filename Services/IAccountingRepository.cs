@@ -30,7 +30,7 @@ namespace Retail.Accounting.Services
         void InsertEmployee(string employeeName, float salary, 
             string email, string phone, string managerName, 
             string departmentTitle); 
-        List<Employee> GetEmployees(); 
+        IEnumerable<EmployeeInfo> GetEmployees(); 
         void UpdateEmployee(int employeeId, string employeeName, 
             float salary, string email, string phone, string managerName, 
             string departmentTitle); 

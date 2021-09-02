@@ -51,12 +51,28 @@ namespace Retail.Accounting.Services
             return employeeId; 
         }
 
-        public static List<Employee> GetEmployees()
+        public static IEnumerable<EmployeeInfo> GetEmployees()
         {
-            List<Employee> employees = new List<Employee>(); 
+            IEnumerable<EmployeeInfo> employees; 
             using (var db = new AccountingContext())
             {
-                employees = db.Employee.OrderBy(e => e.EmployeeId).ToList(); 
+                employees = (from employee in db.Set<Employee>()
+                    from manager in db.Set<Employee>()
+                        .Where(manager => employee.ManagerId == manager.EmployeeId)
+                        .DefaultIfEmpty() 
+                    from department in db.Set<Department>()
+                        .Where(department => employee.DepartmentId == department.DepartmentId)
+                        .DefaultIfEmpty() 
+                    select new EmployeeInfo
+                    {
+                        EmployeeId = employee.EmployeeId, 
+                        EmployeeName = employee.EmployeeName, 
+                        ManagerName = manager.EmployeeName, 
+                        Department = department.Title, 
+                        Salary = employee.Salary, 
+                        Email = employee.Email, 
+                        Phone = employee.Phone
+                    }).ToList(); 
             }
             return employees; 
         }

@@ -70,7 +70,8 @@ namespace Retail.Accounting.Services
             using (var db = new AccountingContext())
             {
                 inventaryItems = (from ii in db.Set<InventaryItem>()
-                    from p in db.Set<Product>().Where(p => ii.ProductId == p.ProductId)
+                    from p in db.Set<Product>()
+                        .Where(p => ii.ProductId == p.ProductId)
                     where ii.InventaryDocId == inventaryDocId
                     select new InventaryItemInfo
                     { 

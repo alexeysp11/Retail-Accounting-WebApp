@@ -288,7 +288,7 @@ namespace Retail.Accounting.Services
                 managerId, departmentId); 
         }
 
-        public List<Employee> GetEmployees()
+        public IEnumerable<EmployeeInfo> GetEmployees()
         {
             return EmployeeService.GetEmployees(); 
         }
