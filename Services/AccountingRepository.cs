@@ -1,6 +1,7 @@
 using System; 
 using System.Collections.Generic; 
 using System.Linq;
+using System.Xml.Linq; 
 using Retail.Accounting.Models; 
 
 namespace Retail.Accounting.Services
@@ -242,8 +243,7 @@ namespace Retail.Accounting.Services
         #endregion  // Employees
 
         #region Partners
-        public void InsertPartner(string partnerName, string company, string email, 
-            string phone)
+        public void InsertPartner(string partnerName, string email, string phone)
         {
             PartnerService.InsertPartner(partnerName, email, phone); 
         }
@@ -264,5 +264,27 @@ namespace Retail.Accounting.Services
             PartnerService.DeletePartner(partnerId); 
         }
         #endregion  // Partners
+
+        #region MainCompany
+        public MainCompany GetMainCompany()
+        {
+            string path = "C:\\Users\\User\\Desktop\\projects\\Retail-Accounting-WebApp\\DB\\MainCompany.xml"; 
+            MainCompany mainCompany = MainCompanyService.FromXmlFile<MainCompany>(path); 
+            return mainCompany; 
+        }
+        
+        public void SetMainCompany(string companyName, string owner, 
+            string country, string city)
+        {
+            string path = "C:\\Users\\User\\Desktop\\projects\\Retail-Accounting-WebApp\\DB\\MainCompany.xml"; 
+            XElement xmlTree1 = new XElement("MainCompany",  
+                new XElement("CompanyName", companyName),  
+                new XElement("Owner", owner),  
+                new XElement("Country", country),  
+                new XElement("City", city) 
+            ); 
+            xmlTree1.Save(path); 
+        }
+        #endregion  // MainCompany
     }
 }

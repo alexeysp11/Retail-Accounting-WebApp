@@ -26,6 +26,7 @@ namespace Retail.Accounting
         public static bool IsErrorMessageActivatedOnExportItem { get; set; } = false; 
         public static bool IsErrorMessageActivatedOnPartners { get; set; } = false; 
         public static bool IsErrorMessageActivatedOnEmployees { get; set; } = false; 
+        public static bool IsErrorMessageActivatedOnSettings { get; set; } = false; 
         
         public static string ErrorMessageOnImport { get; set; }
         public static string ErrorMessageOnImportItem { get; set; }
@@ -33,6 +34,7 @@ namespace Retail.Accounting
         public static string ErrorMessageOnExportItem { get; set; }
         public static string ErrorMessageOnPartners { get; set; }
         public static string ErrorMessageOnEmployees { get; set; }
+        public static string ErrorMessageOnSettings { get; set; }
 
         public static string GetErrorMessage(string operationName, string possibleProblem)
         {

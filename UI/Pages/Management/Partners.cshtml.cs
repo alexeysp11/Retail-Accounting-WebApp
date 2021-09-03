@@ -22,69 +22,66 @@ namespace Retail.Accounting.Pages
 
         }
 
-        public IActionResult OnPostAddBtn(string Partner_name, string company, 
-            string email, string phone)
+        public IActionResult OnPostAddBtn(string partner_name, string email, 
+            string phone)
         {
-            bool isPartnerCorrect = (Partner_name != null && Partner_name != string.Empty);
-            bool isCompanyCorrect = (company != null && company != string.Empty);
+            bool isPartnerCorrect = (partner_name != null && partner_name != string.Empty);
             bool isEmailCorrect = (email != null && email != string.Empty);
             bool isPhoneCorrect = (phone != null && phone != string.Empty);
 
-            if (isPartnerCorrect && isCompanyCorrect && isEmailCorrect && 
-                isPhoneCorrect)
+            if (isPartnerCorrect && isEmailCorrect && isPhoneCorrect)
             {
-                Repository.Instance.InsertPartner(Partner_name, company, email, phone); 
+                Repository.Instance.InsertPartner(partner_name, email, phone); 
                 Repository.IsErrorMessageActivatedOnPartners = false; 
-                _logger.LogInformation($"Added new Partner (Partner_name: {Partner_name}, company: {company})"); 
+                _logger.LogInformation($"Added new Partner (partner_name: {partner_name})"); 
             }
             else
             {
                 Repository.IsErrorMessageActivatedOnPartners = true; 
                 Repository.ErrorMessageOnPartners = Repository.GetErrorMessage("Add", 
-                    "partner name, company, email or phone"); 
+                    "partner name, email or phone"); 
             }
             return RedirectToPage(); 
         }
 
-        public IActionResult OnPostEditBtn(int Partner_id, string Partner_name, 
-            string company, string email, string phone)
+        public IActionResult OnPostEditBtn(int partner_id, string partner_name, 
+            string email, string phone)
         {
-            bool isPartnerIdCorrect = (Partner_id > 0); 
-            bool isPartnerNameCorrect = (Partner_name != null && Partner_name != string.Empty);
-            bool isCompanyCorrect = (company != null && company != string.Empty);
+            bool isPartnerIdCorrect = (partner_id > 0); 
+            bool isPartnerNameCorrect = (partner_name != null && partner_name != string.Empty);
             bool isEmailCorrect = (email != null && email != string.Empty);
             bool isPhoneCorrect = (phone != null && phone != string.Empty);
 
-            if (isPartnerIdCorrect && isPartnerNameCorrect && isCompanyCorrect && 
-                isEmailCorrect && isPhoneCorrect)
+            if (isPartnerIdCorrect && isPartnerNameCorrect && isEmailCorrect && 
+                isPhoneCorrect)
             {
-                Repository.Instance.UpdatePartner(Partner_id, Partner_name, email, 
+                Repository.Instance.UpdatePartner(partner_id, partner_name, email, 
                     phone); 
                 Repository.IsErrorMessageActivatedOnPartners = false; 
-                _logger.LogInformation($"Edited a Partner (Partner_name: {Partner_name}, company: {company})"); 
+                _logger.LogInformation($"Edited a Partner (partner_name: {partner_name})"); 
             }
             else
             {
                 Repository.IsErrorMessageActivatedOnPartners = true; 
                 Repository.ErrorMessageOnPartners = Repository.GetErrorMessage("Edit", 
-                    "partner ID, partner name, company, email or phone"); 
+                    "partner ID, partner name, email or phone"); 
             }
             return RedirectToPage(); 
         }
 
-        public IActionResult OnPostDeleteBtn(int Partner_id)
+        public IActionResult OnPostDeleteBtn(int partner_id)
         {
-            bool isPartnerIdCorrect = (Partner_id > 0); 
+            bool isPartnerIdCorrect = (partner_id > 0); 
             if (isPartnerIdCorrect)
             {
-                Repository.Instance.DeletePartner(Partner_id);
+                Repository.Instance.DeletePartner(partner_id);
                 Repository.IsErrorMessageActivatedOnPartners = false; 
-                _logger.LogInformation($"Deleted Partner with ID: {Partner_id}"); 
+                _logger.LogInformation($"Deleted Partner with ID: {partner_id}"); 
             }
             else
             {
                 Repository.IsErrorMessageActivatedOnPartners = true; 
-                Repository.ErrorMessageOnPartners = Repository.GetErrorMessage("Delete", "Partner ID"); 
+                Repository.ErrorMessageOnPartners = Repository.GetErrorMessage("Delete", "partner ID"); 
             }
             return RedirectToPage(); 
         }

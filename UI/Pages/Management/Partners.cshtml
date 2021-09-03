@@ -18,7 +18,6 @@
             <tr>
                 <th>Partner ID</th>
                 <th>Partner name</th>
-                <th>Company</th>
                 <th>Email</th>
                 <th>Phone</th>
             </tr>
@@ -30,7 +29,6 @@
                     <tr>
                         <td>@Partner.PartnerId</td>
                         <td>@Partner.PartnerName</td>
-                        <td>Company</td>
                         <td>@Partner.Email</td>
                         <td>@Partner.Phone</td>
                     </tr>
@@ -41,7 +39,6 @@
             <tr>
                 <th>Partner ID</th>
                 <th>Partner name</th>
-                <th>Company</th>
                 <th>Email</th>
                 <th>Phone</th>
             </tr>
@@ -56,11 +53,10 @@ catch (System.Exception e)
 
 <form method="post">
     <div id="sticky_buttons" style="border: thin solid black; background: white; visibility: hidden;">
-        <div style="margin-top: 10px; margin-left: 0px; margin-bottom: 10px;">
-            <input type="number" name="Partner_id" id="Partner_id" value="0" style="width: 75px; visibility: hidden;">
-            <input type="text" name="Partner_name" id="Partner_name" placeholder="Partner name">
-            <input type="text" name="company" id="company" placeholder="Company">
-            <input type="text" name="email" id="email" placeholder="Email">
+        <div style="margin-top: 10px; margin-left: 50px; margin-bottom: 10px;">
+            <input type="number" name="partner_id" id="partner_id" value="0" style="width: 75px; visibility: hidden;">
+            <input type="text" name="partner_name" id="partner_name" placeholder="Partner name">
+            <input type="text" name="email" id="email" placeholder="Email" style="width: 250px;">
             <input type="text" name="phone" id="phone" placeholder="Phone">
         </div>
 
@@ -116,11 +112,10 @@ catch (System.Exception e)
                     document.getElementById('sticky_buttons').style.visibility = "visible";
                     
                     var rowArray = table.row(this).data();
-                    document.getElementById('Partner_id').value = rowArray[0]; 
-                    document.getElementById('Partner_name').value = rowArray[1]; 
-                    document.getElementById('company').value = rowArray[2]; 
-                    document.getElementById('email').value = rowArray[3]; 
-                    document.getElementById('phone').value = rowArray[4]; 
+                    document.getElementById('partner_id').value = rowArray[0]; 
+                    document.getElementById('partner_name').value = rowArray[1]; 
+                    document.getElementById('email').value = rowArray[2]; 
+                    document.getElementById('phone').value = rowArray[3]; 
                 }
             } );
         } ); 

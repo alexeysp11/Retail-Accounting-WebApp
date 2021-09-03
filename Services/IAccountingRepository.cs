@@ -29,10 +29,9 @@ namespace Retail.Accounting.Services
             string departmentTitle); 
         void DeleteEmployee(int employeeId); 
 
-        void InsertPartner(string PartnerName, string company, string email, 
-            string phone); 
+        void InsertPartner(string partnerName, string email, string phone); 
         List<Partner> GetPartners(); 
-        void UpdatePartner(int PartnerId, string PartnerName, string email, 
+        void UpdatePartner(int partnerId, string partnerName, string email, 
             string phone); 
         void DeletePartner(int PartnerId); 
 
@@ -49,5 +48,9 @@ namespace Retail.Accounting.Services
         void UpdateExportItem(int exportItemId, string productTitle, 
             float quantity, float price); 
         void DeleteExportItem(int exportItemId); 
+
+        MainCompany GetMainCompany(); 
+        void SetMainCompany(string companyName, string owner, 
+            string country, string city); 
     }
 }

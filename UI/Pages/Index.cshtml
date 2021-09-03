@@ -4,27 +4,35 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="info-wrapper">
-    <div style="grid-column: 1; grid-row: 1;">
-        <b>Company name:</b>
-    </div>
-    <div style="grid-column: 2; grid-row: 1;">Company1</div>
+@try 
+{
+    var company = Repository.Instance.GetMainCompany(); 
+    <div class="info-wrapper">
+        <div style="grid-column: 1; grid-row: 1;">
+            <b>Company name:</b>
+        </div>
+        <div style="grid-column: 2; grid-row: 1;">@company.CompanyName</div>
 
-    <div style="grid-column: 1; grid-row: 2;">
-        <b>Owner:</b>
-    </div>
-    <div style="grid-column: 2; grid-row: 2;">Owner1</div>
+        <div style="grid-column: 1; grid-row: 2;">
+            <b>Owner:</b>
+        </div>
+        <div style="grid-column: 2; grid-row: 2;">@company.Owner</div>
 
-    <div style="grid-column: 1; grid-row: 3;">
-        <b>Country:</b>
-    </div>
-    <div style="grid-column: 2; grid-row: 3;">Country1</div>
+        <div style="grid-column: 1; grid-row: 3;">
+            <b>Country:</b>
+        </div>
+        <div style="grid-column: 2; grid-row: 3;">@company.Country</div>
 
-    <div style="grid-column: 1; grid-row: 4;">
-        <b>City:</b>
+        <div style="grid-column: 1; grid-row: 4;">
+            <b>City:</b>
+        </div>
+        <div style="grid-column: 2; grid-row: 4;">@company.City</div>
     </div>
-    <div style="grid-column: 2; grid-row: 4;">City1</div>
-</div>
+}
+catch (System.Exception)
+{
+    <p>Unable to read general info</p>
+}
 
 <br>
 
