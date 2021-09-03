@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Retail.Accounting.Models
 {
-    public class Client
+    public class Partner
     {
-        public int ClientId { get; set; }
-        public string ClientName { get; set; }
+        public int PartnerId { get; set; }
+        public string PartnerName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
 

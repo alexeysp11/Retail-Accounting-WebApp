@@ -20,13 +20,6 @@ namespace Retail.Accounting.Services
             string employeeName, string purchaserName, DateTime dateTime); 
         void DeleteExportDoc(int exportDocId); 
 
-        void InsertInventaryDoc(string docNum, string employeeName, 
-            DateTime dateTime); 
-        IEnumerable<InventaryDocInfo> GetInventaryDocs(); 
-        void UpdateInventaryDoc(int inventaryDocId, string docNum, 
-            string employeeName, DateTime dateTime); 
-        void DeleteInventaryDoc(int inventaryDocId); 
-
         void InsertEmployee(string employeeName, float salary, 
             string email, string phone, string managerName, 
             string departmentTitle); 
@@ -36,12 +29,12 @@ namespace Retail.Accounting.Services
             string departmentTitle); 
         void DeleteEmployee(int employeeId); 
 
-        void InsertClient(string clientName, string company, string email, 
+        void InsertPartner(string PartnerName, string company, string email, 
             string phone); 
-        List<Client> GetClients(); 
-        void UpdateClient(int clientId, string clientName, string email, 
+        List<Partner> GetPartners(); 
+        void UpdatePartner(int PartnerId, string PartnerName, string email, 
             string phone); 
-        void DeleteClient(int clientId); 
+        void DeletePartner(int PartnerId); 
 
         void InsertImportItem(string productTitle, float quantity, 
             float price, int importDocId); 
@@ -56,12 +49,5 @@ namespace Retail.Accounting.Services
         void UpdateExportItem(int exportItemId, string productTitle, 
             float quantity, float price); 
         void DeleteExportItem(int exportItemId); 
-        
-        void InsertInventaryItem(string productTitle, float quantity, 
-            int inventaryDocId); 
-        IEnumerable<InventaryItemInfo> GetInventaryItems(int inventaryDocId);
-        void UpdateInventaryItem(int inventaryItemId, string productTitle, 
-            float quantity); 
-        void DeleteInventaryItem(int inventaryItemId); 
     }
 }

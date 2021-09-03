@@ -54,14 +54,14 @@ namespace Retail.Accounting.Services
             using (var db = new AccountingContext())
             {
                 importDocs = (from id in db.Set<ImportDoc>()
-                    from c in db.Set<Client>().Where(c => id.SupplierId == c.ClientId) 
+                    from c in db.Set<Partner>().Where(c => id.SupplierId == c.PartnerId) 
                     from e in db.Set<Employee>().Where(e => id.EmployeeId == e.EmployeeId) 
                     select new ImportDocInfo
                     {
                         ImportDocId = id.ImportDocId, 
                         DocNum = id.DocNum, 
                         EmployeeName = e.EmployeeName,
-                        SupplierName = c.ClientName, 
+                        SupplierName = c.PartnerName, 
                         DateTime = id.DateTime
                     }).ToList(); 
             }

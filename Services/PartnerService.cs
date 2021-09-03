@@ -5,16 +5,16 @@ using Retail.Accounting.Models;
 
 namespace Retail.Accounting.Services
 {
-    public static class ClientService
+    public static class PartnerService
     {
-        public static void InsertClient(string clientName, string email, 
+        public static void InsertPartner(string partnerName, string email, 
             string phone)
         {
             using (var db = new AccountingContext())
             {
-                db.Add(new Client 
+                db.Add(new Partner 
                 { 
-                    ClientName = clientName, 
+                    PartnerName = partnerName, 
                     Email = email, 
                     Phone = phone 
                 });
@@ -22,50 +22,50 @@ namespace Retail.Accounting.Services
             }
         }
 
-        public static int? GetClientId(string clientName)
+        public static int? GetPartnerId(string partnerName)
         {
-            int? clientId = 0; 
+            int? partnerId = 0; 
             using (var db = new AccountingContext())
             {
-                var clientList = db.Client
-                    .Where(c => c.ClientName == clientName)
+                var PartnerList = db.Partner
+                    .Where(c => c.PartnerName == partnerName)
                     .ToList(); 
-                if (clientList.Count != 0)
+                if (PartnerList.Count != 0)
                 {
-                    clientId = clientList[0].ClientId; 
+                    partnerId = PartnerList[0].PartnerId; 
                 }
                 else
                 {
-                    clientId = null; 
+                    partnerId = null; 
                 }
             }
-            return clientId; 
+            return partnerId; 
         }
 
-        public static List<Client> GetClients()
+        public static List<Partner> GetPartners()
         {
-            List<Client> clients = new List<Client>(); 
+            List<Partner> Partners = new List<Partner>(); 
             using (var db = new AccountingContext())
             {
-                clients = db.Client.OrderBy(c => c.ClientId).ToList(); 
+                Partners = db.Partner.OrderBy(c => c.PartnerId).ToList(); 
             }
-            return clients; 
+            return Partners; 
         }
 
-        public static void UpdateClient(int clientId, string clientName, 
+        public static void UpdatePartner(int partnerId, string partnerName, 
             string email, string phone)
         {
             try
             {
                 using (var db = new AccountingContext())
                 {
-                    var client = db.Client
-                        .Where(ii => ii.ClientId == clientId)
+                    var Partner = db.Partner
+                        .Where(ii => ii.PartnerId == partnerId)
                         .ToList()
                         .First(); 
-                    client.ClientName = clientName; 
-                    client.Email = email; 
-                    client.Phone = phone; 
+                    Partner.PartnerName = partnerName; 
+                    Partner.Email = email; 
+                    Partner.Phone = phone; 
                     db.SaveChanges();
                 }
             }
@@ -75,17 +75,17 @@ namespace Retail.Accounting.Services
             }
         }
 
-        public static void DeleteClient(int clientId)
+        public static void DeletePartner(int partnerId)
         {
             try
             {
                 using (var db = new AccountingContext())
                 {
-                    var client = db.Client
-                        .Where(c => c.ClientId == clientId)
+                    var Partner = db.Partner
+                        .Where(c => c.PartnerId == partnerId)
                         .ToList()
                         .First(); 
-                    db.Remove(client);
+                    db.Remove(Partner);
                     db.SaveChanges();
                 }
             }

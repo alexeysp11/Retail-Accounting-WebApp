@@ -12,12 +12,9 @@ namespace Retail.Accounting.Models
         public DbSet<ImportDoc> ImportDocs { get; set; }
         public DbSet<ImportItem> ImportItems { get; set; }
 
-        public DbSet<InventaryDoc> InventaryDocs { get; set; }
-        public DbSet<InventaryItem> InventaryItems { get; set; }
-
         public DbSet<Product> Product { get; set; }
 
-        public DbSet<Client> Client { get; set; }
+        public DbSet<Partner> Partner { get; set; }
 
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Contract> Contract { get; set; }
@@ -71,16 +68,6 @@ namespace Retail.Accounting.Models
                 .HasOne(ei => ei.ExportDoc)
                 .WithMany(ed => ed.ExportItems)
                 .HasForeignKey(ed => ed.ExportDocId);
-
-            modelBuilder.Entity<InventaryItem>()
-                .HasOne(ii => ii.Product)
-                .WithMany(p => p.InventaryItems)
-                .HasForeignKey(ii => ii.ProductId);
-
-            modelBuilder.Entity<InventaryItem>()
-                .HasOne(ii => ii.InventaryDoc)
-                .WithMany(id => id.InventaryItems)
-                .HasForeignKey(id => id.InventaryDocId);
 
             modelBuilder.Entity<Employee>()
                 .HasOne(e => e.Manager)

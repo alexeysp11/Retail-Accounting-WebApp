@@ -19,11 +19,11 @@ namespace Retail.Accounting.Services
                 employeeId = EmployeeService.GetEmployeeId(employeeName); 
             }
 
-            int? supplierId = ClientService.GetClientId(supplierName); 
+            int? supplierId = PartnerService.GetPartnerId(supplierName); 
             if (supplierId == null)
             {
-                ClientService.InsertClient(supplierName, string.Empty, string.Empty); 
-                supplierId = ClientService.GetClientId(supplierName); 
+                PartnerService.InsertPartner(supplierName, string.Empty, string.Empty); 
+                supplierId = PartnerService.GetPartnerId(supplierName); 
             }
 
             ImportService.InsertImportDoc(docNum, (int)employeeId, (int)supplierId, dateTime); 
@@ -45,11 +45,11 @@ namespace Retail.Accounting.Services
                 employeeId = EmployeeService.GetEmployeeId(employeeName); 
             }
 
-            int? supplierId = ClientService.GetClientId(supplierName); 
+            int? supplierId = PartnerService.GetPartnerId(supplierName); 
             if (supplierId == null)
             {
-                ClientService.InsertClient(supplierName, string.Empty, string.Empty); 
-                supplierId = ClientService.GetClientId(supplierName); 
+                PartnerService.InsertPartner(supplierName, string.Empty, string.Empty); 
+                supplierId = PartnerService.GetPartnerId(supplierName); 
             }
 
             ImportService.UpdateImportDoc( importDocId, docNum, (int)employeeId, 
@@ -111,11 +111,11 @@ namespace Retail.Accounting.Services
                 employeeId = EmployeeService.GetEmployeeId(employeeName); 
             }
 
-            int? purchaserId = ClientService.GetClientId(purchaserName); 
+            int? purchaserId = PartnerService.GetPartnerId(purchaserName); 
             if (purchaserId == null)
             {
-                ClientService.InsertClient(purchaserName, string.Empty, string.Empty); 
-                purchaserId = ClientService.GetClientId(purchaserName); 
+                PartnerService.InsertPartner(purchaserName, string.Empty, string.Empty); 
+                purchaserId = PartnerService.GetPartnerId(purchaserName); 
             }
 
             ExportService.InsertExportDoc(docNum, (int)employeeId, (int)purchaserId, dateTime); 
@@ -137,11 +137,11 @@ namespace Retail.Accounting.Services
                 employeeId = EmployeeService.GetEmployeeId(employeeName); 
             }
 
-            int? purchaserId = ClientService.GetClientId(purchaserName); 
+            int? purchaserId = PartnerService.GetPartnerId(purchaserName); 
             if (purchaserId == null)
             {
-                ClientService.InsertClient(purchaserName, string.Empty, string.Empty); 
-                purchaserId = ClientService.GetClientId(purchaserName); 
+                PartnerService.InsertPartner(purchaserName, string.Empty, string.Empty); 
+                purchaserId = PartnerService.GetPartnerId(purchaserName); 
             }
 
             ExportService.UpdateExportDoc( exportDocId, docNum, (int)employeeId, 
@@ -190,83 +190,6 @@ namespace Retail.Accounting.Services
             ExportService.DeleteExportItem(exportItemId);
         }
         #endregion  // ExportItem
-
-        #region InventaryDoc 
-        public void InsertInventaryDoc(string docNum, string employeeName, 
-            DateTime dateTime)
-        {
-            int? employeeId = EmployeeService.GetEmployeeId(employeeName); 
-            if (employeeId == null)
-            {
-                EmployeeService.InsertEmployee(employeeName, 0, string.Empty, 
-                    string.Empty, null, null); 
-                employeeId = EmployeeService.GetEmployeeId(employeeName); 
-            }
-            InventaryService.InsertInventaryDoc(docNum, (int)employeeId, dateTime); 
-        }
-
-        public IEnumerable<InventaryDocInfo> GetInventaryDocs()
-        {
-            return InventaryService.GetInventaryDocs(); 
-        }
-
-        public void UpdateInventaryDoc(int inventaryDocId, string docNum, 
-            string employeeName, DateTime dateTime)
-        {
-            int? employeeId = EmployeeService.GetEmployeeId(employeeName); 
-            if (employeeId == null)
-            {
-                EmployeeService.InsertEmployee(employeeName, 0, string.Empty, 
-                    string.Empty, null, null); 
-                employeeId = EmployeeService.GetEmployeeId(employeeName); 
-            }
-
-            InventaryService.UpdateInventaryDoc(inventaryDocId, docNum, 
-                (int)employeeId, dateTime); 
-        }
-
-        public void DeleteInventaryDoc(int inventaryDocId)
-        {
-            InventaryService.DeleteInventaryDoc(inventaryDocId); 
-        }
-        #endregion  // InventaryDoc 
-
-        #region InventaryItem
-        public void InsertInventaryItem(string productTitle, float quantity, 
-            int inventaryDocId)
-        {
-            InventaryService.InsertInventaryItem(productTitle, quantity, 
-                inventaryDocId); 
-        }
-
-        public IEnumerable<InventaryItemInfo> GetInventaryItems(int inventaryDocId)
-        {
-            return InventaryService.GetInventaryItems(inventaryDocId);
-        }
-
-        public void UpdateInventaryItem(int inventaryItemId, string productTitle, 
-            float quantity)
-        {
-            try
-            {
-                ProductService.InsertProductIfNotExists(productTitle); 
-                var product = ProductService.GetProducts()
-                    .Where(p => p.Title == productTitle)
-                    .First();
-                InventaryService.UpdateInventaryItem(inventaryItemId, 
-                    product.ProductId, quantity); 
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public void DeleteInventaryItem(int inventaryItemId)
-        {
-            InventaryService.DeleteInventaryItem(inventaryItemId); 
-        }
-        #endregion  // InventaryItem
 
         #region Employees
         public void InsertEmployee(string employeeName, float salary, 
@@ -318,28 +241,28 @@ namespace Retail.Accounting.Services
         }
         #endregion  // Employees
 
-        #region Clients
-        public void InsertClient(string clientName, string company, string email, 
+        #region Partners
+        public void InsertPartner(string partnerName, string company, string email, 
             string phone)
         {
-            ClientService.InsertClient(clientName, email, phone); 
+            PartnerService.InsertPartner(partnerName, email, phone); 
         }
 
-        public List<Client> GetClients()
+        public List<Partner> GetPartners()
         {
-            return ClientService.GetClients(); 
+            return PartnerService.GetPartners(); 
         }
 
-        public void UpdateClient(int clientId, string clientName, 
+        public void UpdatePartner(int partnerId, string partnerName, 
             string email, string phone)
         {
-            ClientService.UpdateClient(clientId, clientName, email, phone);
+            PartnerService.UpdatePartner(partnerId, partnerName, email, phone);
         }
 
-        public void DeleteClient(int clientId)
+        public void DeletePartner(int partnerId)
         {
-            ClientService.DeleteClient(clientId); 
+            PartnerService.DeletePartner(partnerId); 
         }
-        #endregion  // Clients
+        #endregion  // Partners
     }
 }

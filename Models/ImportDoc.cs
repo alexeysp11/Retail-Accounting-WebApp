@@ -13,7 +13,7 @@ namespace Retail.Accounting.Models
         public Employee Employee { get; set; }
 
         public int SupplierId { get; set; }
-        public Client Supplier { get; set; }
+        public Partner Supplier { get; set; }
 
         public List<ImportItem> ImportItems { get; set; }
     }

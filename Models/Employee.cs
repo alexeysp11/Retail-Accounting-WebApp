@@ -22,6 +22,5 @@ namespace Retail.Accounting.Models
 
         public List<ImportDoc> ImportDocs { get; set; }
         public List<ExportDoc> ExportDocs { get; set; }
-        public List<InventaryDoc> InventaryDocs { get; set; }
     }
 }

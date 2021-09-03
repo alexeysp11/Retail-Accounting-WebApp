@@ -93,7 +93,6 @@ namespace Retail.Accounting.Pages
             {
                 Repository.ImportDocId = document_id; 
                 Repository.IsErrorMessageActivatedOnImport = false; 
-                _logger.LogInformation($"Request for ImportDoc with ID: {document_id}"); 
                 return RedirectToPage("ImportItem");
             }
             else

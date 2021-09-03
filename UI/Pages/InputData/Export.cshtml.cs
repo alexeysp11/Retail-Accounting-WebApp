@@ -94,7 +94,6 @@ namespace Retail.Accounting.Pages
             {
                 Repository.ExportDocId = document_id; 
                 Repository.IsErrorMessageActivatedOnExport = false; 
-                _logger.LogInformation($"Request for ExportDoc with ID: {document_id}"); 
                 return RedirectToPage("ExportItem");
             }
             else

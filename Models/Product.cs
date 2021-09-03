@@ -10,6 +10,5 @@ namespace Retail.Accounting.Models
 
         public List<ExportItem> ExportItems { get; set; }
         public List<ImportItem> ImportItems { get; set; }
-        public List<InventaryItem> InventaryItems { get; set; }
     }
 }
