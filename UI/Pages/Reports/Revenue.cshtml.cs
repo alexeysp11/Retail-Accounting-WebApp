@@ -8,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Retail.Accounting.Pages
 {
-    public class PerformanceModel : PageModel
+    public class RevenueModel : PageModel
     {
-        private readonly ILogger<PerformanceModel> _logger;
+        private readonly ILogger<RevenueModel> _logger;
 
-        public PerformanceModel(ILogger<PerformanceModel> logger)
+        public RevenueModel(ILogger<RevenueModel> logger)
         {
             _logger = logger;
         }

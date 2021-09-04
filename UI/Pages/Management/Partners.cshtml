@@ -13,7 +13,7 @@
 @try
 {
     var Partners = Repository.Instance.GetPartners(); 
-    <table id="Partners_table" class="stripe row-border order-column" style="width:80%">
+    <table id="partners_table" class="stripe row-border order-column" style="width:80%">
         <thead>
             <tr>
                 <th>Partner ID</th>
@@ -91,7 +91,7 @@ catch (System.Exception e)
         let isRowSelected = false; 
         
         $(document).ready(function() {
-            var table = $('#Partners_table').DataTable({
+            var table = $('#partners_table').DataTable({
                 "columnDefs": [
                     {
                         "targets": [ 0 ],
@@ -101,7 +101,7 @@ catch (System.Exception e)
                 ]
             });
 
-            $('#Partners_table tbody').on( 'click', 'tr', function () {
+            $('#partners_table tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                     document.getElementById('sticky_buttons').style.visibility = "hidden";

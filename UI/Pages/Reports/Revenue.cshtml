@@ -1,0 +1,213 @@
+@page
+@model RevenueModel
+@{
+    ViewData["Title"] = "Revenue";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css" />
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<div class="text-center"> 
+    <h1>Revenue</h1> 
+</div>
+
+<h2>Company summary</h2>
+<table id="company_revenue_table" class="stripe row-border order-column" style="width:80%">
+    <thead>
+        <tr>
+            <th>Record ID</th>
+            <th>Date</th>
+            <th>Total revenue</th>
+            <th>Weighted revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Record ID</td>
+            <td>Date</td>
+            <td>Total revenue</td>
+            <td>Weighted revenue</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Record ID</th>
+            <th>Date</th>
+            <th>Total revenue</th>
+            <th>Weighted revenue</th>
+        </tr>
+    </tfoot>
+</table>
+<hr>
+<div neme="company_revenue_chart" id="company_revenue_chart" style="width:90%;height:350px;"></div>
+
+<h2>Personal summary</h2>
+<table id="personal_revenue_table" class="stripe row-border order-column" style="width:80%">
+    <thead>
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee name</th>
+            <th>Total revenue</th>
+            <th>Weighted revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Employee ID</td>
+            <td>Employee name</td>
+            <td>Total revenue</td>
+            <td>Weighted revenue</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee name</th>
+            <th>Total revenue</th>
+            <th>Weighted revenue</th>
+        </tr>
+    </tfoot>
+</table>
+<hr>
+<div name="personal_charts" id="personal_charts" style="display: grid; grid-template-columns: 50% 50%;">
+    <div name="personal_revenue_barchart" id="personal_revenue_barchart" style="height:350px;"></div>
+    <div name="personal_revenue_piechart" id="personal_revenue_piechart" style="height:350px;"></div>
+</div>
+
+<h2>Product summary</h2>
+<table id="product_table" class="stripe row-border order-column" style="width:80%">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product name</th>
+            <th>Total revenue</th>
+            <th>Total quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Product ID</td>
+            <td>Product name</td>
+            <td>Total revenue</td>
+            <td>Total quantity</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Product ID</th>
+            <th>Product name</th>
+            <th>Total revenue</th>
+            <th>Total quantity</th>
+        </tr>
+    </tfoot>
+</table>
+<hr>
+<div name="product_charts" id="product_charts" style="display: grid; grid-template-columns: 50% 50%;">
+    <div name="product_barchart" id="product_barchart" style="height:350px;"></div>
+    <div name="product_piechart" id="product_piechart" style="height:350px;"></div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script language="JavaScript" type="text/javascript">
+    $.noConflict();
+
+    // Tables. 
+    jQuery( document ).ready(function( $ ) {
+        $(document).ready(function() {
+            var companyRevenueTable = $('#company_revenue_table').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ]
+            });
+
+            var personalRevenueTable = $('#personal_revenue_table').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ]
+            });
+
+            var productTable = $('#product_table').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ]
+            });
+        } ); 
+    });
+
+    // Company revenue chart. 
+    var companyRevenueLayout = {
+        title:'Company revenue chart', 
+        yaxis: {
+            title: 'Revenue, $'
+        }
+    };
+    var companyRevenueData = [
+        {
+            x: ['2013-10-04', '2013-11-04', '2013-12-04'],
+            y: [1, 3, 6],
+            type: 'scatter'
+        }
+    ];
+    Plotly.newPlot('company_revenue_chart', companyRevenueData, companyRevenueLayout);
+
+    // Personal revenue pie chart. 
+    var personalPieData = [
+        {
+            values: [19, 26, 55],
+            labels: ['Residential', 'Non-Residential', 'Utility'],
+            type: 'pie'
+        }
+    ];
+    var personalPieLayout = {
+        height: 400,
+        width: 500
+    };
+    Plotly.newPlot('personal_revenue_piechart', personalPieData, personalPieLayout);
+
+    // Personal revenue bar chart. 
+    var personalBarChartData = [
+        {
+            x: ['giraffes', 'orangutans', 'monkeys'],
+            y: [20, 14, 23],
+            type: 'bar'
+        }
+    ];
+    Plotly.newPlot('personal_revenue_barchart', personalBarChartData);
+
+    // Product pie chart. 
+    var productPieChartData = [
+        {
+            values: [19, 26, 55],
+            labels: ['Residential', 'Non-Residential', 'Utility'],
+            type: 'pie'
+        }
+    ];
+    var productPieChartLayout = {
+        height: 400,
+        width: 500
+    };
+    Plotly.newPlot('product_piechart', productPieChartData, productPieChartLayout);
+
+    // Product bar chart.
+    var productBarChartData = [
+        {
+            x: ['giraffes', 'orangutans', 'monkeys'],
+            y: [20, 14, 23],
+            type: 'bar'
+        }
+    ];
+    Plotly.newPlot('product_barchart', productBarChartData);
+</script>
