@@ -52,5 +52,8 @@ namespace Retail.Accounting.Services
         MainCompany GetMainCompany(); 
         void SetMainCompany(string companyName, string owner, 
             string country, string city); 
+        
+        IEnumerable<ProductRevenueInfo> GetProductRevenueInfo(); 
+        IEnumerable<PersonalRevenueInfo> GetPersonalRevenue(); 
     }
 }

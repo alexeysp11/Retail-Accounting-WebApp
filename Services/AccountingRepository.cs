@@ -286,5 +286,17 @@ namespace Retail.Accounting.Services
             xmlTree1.Save(path); 
         }
         #endregion  // MainCompany
+
+        #region Reports 
+        public IEnumerable<ProductRevenueInfo> GetProductRevenueInfo()
+        {
+            return ReportService.GetProductRevenueInfo(); 
+        }
+
+        public IEnumerable<PersonalRevenueInfo> GetPersonalRevenue()
+        {
+            return ReportService.GetPersonalRevenue(); 
+        }
+        #endregion  // Reports 
     }
 }

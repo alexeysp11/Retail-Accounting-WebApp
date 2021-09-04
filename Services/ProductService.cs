@@ -14,7 +14,6 @@ namespace Retail.Accounting.Services
                 var productList = db.Product
                     .Where(p => p.Title == productTitle)
                     .ToList(); 
-                
                 if (productList.Count == 0)
                 {
                     db.Add(new Product { Title = productTitle });
