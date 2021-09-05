@@ -297,6 +297,11 @@ namespace Retail.Accounting.Services
         {
             return ReportService.GetPersonalRevenue(); 
         }
+
+        public IEnumerable<ProductRemainsInfo> GetProductRemainsReport()
+        {
+            return ReportService.GetProductRemainsReport(); 
+        }
         #endregion  // Reports 
     }
 }

@@ -55,5 +55,6 @@ namespace Retail.Accounting.Services
         
         IEnumerable<ProductRevenueInfo> GetProductRevenueInfo(); 
         IEnumerable<PersonalRevenueInfo> GetPersonalRevenue(); 
+        IEnumerable<ProductRemainsInfo> GetProductRemainsReport(); 
     }
 }

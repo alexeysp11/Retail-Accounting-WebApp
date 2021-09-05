@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Retail.Accounting.Models; 
 
 namespace Retail.Accounting.Services
@@ -71,6 +72,38 @@ namespace Retail.Accounting.Services
                     );
             }
             return employeeStats; 
+        }
+
+        public static IEnumerable<ProductRemainsInfo> GetProductRemainsReport()
+        {
+            IEnumerable<ProductRemainsInfo> products; 
+            using (var db = new AccountingContext())
+            {
+                products = (from p in db.Set<Product>()
+                    from ei in db.Set<ExportItem>()
+                        .Where(ei => p.ProductId == ei.ProductId)
+                    from ii in db.Set<ImportItem>()
+                        .Where(ii => p.ProductId == ii.ProductId)
+                    select new 
+                    {
+                        ProductId = p.ProductId, 
+                        ProductTitle = p.Title, 
+                        QuantityLeft = ii.Quantity - ei.Quantity, 
+                        PriceImport = ii.Price
+                    })
+                    .ToList()
+                    .GroupBy (s => new { s.ProductId, s.ProductTitle } )
+                    .Select (g => 
+                        new ProductRemainsInfo
+                        {
+                            ProductId = g.Key.ProductId,
+                            ProductTitle = g.Key.ProductTitle,
+                            QuantityLeft = (float)Math.Round( g.Sum(x => x.QuantityLeft), 3 ),
+                            AvgPriceImport = (float)Math.Round( g.Average(x => x.PriceImport), 3 )
+                        }
+                    );
+            }
+            return products; 
         }
     }
 }
