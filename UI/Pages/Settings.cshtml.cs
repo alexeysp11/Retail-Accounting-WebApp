@@ -36,7 +36,7 @@ namespace Retail.Accounting.Pages
                 Repository.Instance.SetMainCompany(company_name, owner, country, 
                     city); 
                 Repository.IsErrorMessageActivatedOnSettings = false; 
-                _logger.LogInformation($"Edited infoemation about the company (company_name: {company_name}, owner: {owner}, country: {country}, city: {city})"); 
+                _logger.LogInformation($"Edited information about the company (company_name: {company_name}, owner: {owner}, country: {country}, city: {city})"); 
             }
             else
             {
